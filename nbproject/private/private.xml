@@ -2,17 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/app/views/admin/_all_hits.html.erb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/app/controllers/admin_controller.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/app/models/disambiguation.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/lib/experimental_run_mixin.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/app/models/snippet.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/Rakefile</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/config.ru</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/config/environment.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/config/application.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/db/migrate/20110208160852_create_rounded_corners.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/app/views/admin/index.html.erb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/foster-kapelner-wordturkers/lib/personal_information.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/controllers/welcome_controller.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/test/unit/page_test.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/models/page.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/db/migrate/20120515222652_create_pages.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/test/unit/concept_bundle_test.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/models/concept_bundle.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/db/migrate/20120515223552_create_concept_bundles.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/test/unit/question_test.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/models/question.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/db/migrate/20120515224547_create_questions.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/models/answer.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/db/migrate/20120516014254_create_answers.rb</file>
     </open-files>
 </project-private>
