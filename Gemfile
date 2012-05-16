@@ -3,10 +3,8 @@ source 'http://rubygems.org'
 gem 'railties', '3.2.0'
 gem 'rails', '3.2'
 
-
 gem 'rake', '0.9.2.2'
 gem 'nokogiri', '1.5.0'
-#gem "exception_notification", :git => "git://github.com/rails/exception_notification.git", :require => "exception_notifier"
 gem 'crypt19', :platform => :ruby
 gem 'rak'
 gem 'POpen4'
@@ -17,10 +15,11 @@ gem 'rubystats'
 
 group :production do
   gem 'mysql2', :git => 'git://github.com/brianmario/mysql2.git'
+#  gem "exception_notification", :git => "git://github.com/rails/exception_notification.git", :require => "exception_notifier"
 end
 
 group :development do
-  gem 'mysql'
+  gem 'mysql', :platforms => :mingw #, :path => 'C:/Ruby193/lib/ruby/gems/1.9.1/gems/mysql-2.8.1'
   gem 'win32-open3-19', :platforms => :mingw
   #handy tools to make the console and logging pretty
   gem 'win32console'
@@ -29,7 +28,6 @@ group :development do
   gem 'awesome_print'
 end
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -37,3 +35,5 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
 end
+
+#bundle install --without production
