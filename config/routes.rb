@@ -1,8 +1,12 @@
 Learnopedia::Application.routes.draw do
 
+  mount RailsAdmin::Engine => '/dbadmin', :as => 'rails_admin'
+
+  devise_for :users
+
   get "welcome/index"
 
-  mount RailsAdmin::Engine => '/dbadmin', :as => 'rails_admin'
+  
   
   root :to => 'welcome#index'
 
