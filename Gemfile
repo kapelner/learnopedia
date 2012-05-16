@@ -19,7 +19,7 @@ group :production do
 end
 
 group :development do
-  gem 'mysql', :platforms => :mingw #, :path => 'C:/Ruby193/lib/ruby/gems/1.9.1/gems/mysql-2.8.1'
+  gem 'mysql', :platforms => :mingw
   gem 'win32-open3-19', :platforms => :mingw
   #handy tools to make the console and logging pretty
   gem 'win32console'
