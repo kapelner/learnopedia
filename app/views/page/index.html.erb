@@ -1,16 +1,22 @@
 <h2>Add a Page</h2>
 
-<%= form_for :newpage do |f| %>
-  URL of Wikipedia Page: 
-  <%= f.text_field :url %>
-  <%= submit_tag " Add Wikipedia Page To Learnopedia " %>
-<% end %>
+<div style="text-align:left;">
+  <%= form_for :newpage do |f| %>
+    URL of Wikipedia Page:
+    <%= f.text_field :url %>
+    <%= submit_tag " Add Wikipedia Page To Learnopedia " %>
+  <% end %>
+</div>
 
 <h2>All Pages</h2>
 
-<% @pages.each_with_index do |p, i| %>
- <%= i + 1 %>: <%= link_to raw(p.title), :controller => :page, :action => :raw_wikipedia_page, :id => p.id %><br />
-<% end %>
+<div style="text-align:left;">
+  Click on the page below to add concept bundles: <br />
+
+  <% @pages.each_with_index do |p, i| %>
+   <%= i + 1 %>: <%= link_to raw(p.title), :controller => :page, :action => :concept_bundle_interface, :id => p.id %><br />
+  <% end %>
+ </div>
 
 
 

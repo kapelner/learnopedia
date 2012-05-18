@@ -6,7 +6,7 @@ Learnopedia::Application.routes.draw do
 
   root :to => 'page#index'
 
-  get "page/raw_wikipedia_page"
-
+  get "page/concept_bundle_interface"
+  post "page/concept_bundle_interface"
   
 end

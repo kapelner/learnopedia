@@ -3,6 +3,8 @@ require 'open-uri'
 class Page < ActiveRecord::Base
   has_many :concept_bundles
 
+  include HTMLParseTools
+
   def Page.create_learnopedia_page_by_url!(url)
     doc = Nokogiri::HTML(open(url))
     Page.create({
@@ -13,5 +15,10 @@ class Page < ActiveRecord::Base
 
   def html_with_links_rewritten
     html
+  end
+
+  def delimit_the_html
+    all_splits = html_with_links_rewritten.split(/\s/)
+    all_splits.join(' ')
   end
 end

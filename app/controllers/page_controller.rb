@@ -7,11 +7,8 @@ class PageController < ApplicationController
     @pages = Page.all
   end
 
-  def instructor_interface
+  def concept_bundle_interface
     @page = Page.find(params[:id])
-  end
-
-  def raw_wikipedia_page
-    render :text => Page.find(params[:id]).html_with_links_rewritten
+        
   end
 end

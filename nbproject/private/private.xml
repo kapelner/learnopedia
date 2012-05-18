@@ -1,18 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/controllers/welcome_controller.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/test/unit/page_test.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/models/page.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/db/migrate/20120515222652_create_pages.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/test/unit/concept_bundle_test.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/models/concept_bundle.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/db/migrate/20120515223552_create_concept_bundles.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/test/unit/question_test.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/models/question.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/db/migrate/20120515224547_create_questions.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/models/answer.rb</file>
-        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/db/migrate/20120516014254_create_answers.rb</file>
-    </open-files>
 </project-private>
