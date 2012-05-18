@@ -1,0 +1,6 @@
+<h2>Concept Bundles</h2>
+<% @page.concept_bundles.each_with_index do |cb, i| %>
+  <%= i + 1 %>. <%= cb.title %>
+<% end %>
+
+<input type="button" value=" Add " />
