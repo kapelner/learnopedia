@@ -11,12 +11,16 @@
 <h2>All Pages</h2>
 
 <div style="text-align:left;">
-  Click on the page below to add concept bundles: <br />
 
-  <% @pages.each_with_index do |p, i| %>
-   <%= i + 1 %>: <%= link_to raw(p.title), :controller => :page, :action => :concept_bundle_interface, :id => p.id %><br />
-  <% end %>
+  <table width="100%">
+    <% @pages.each_with_index do |p, i| %>
+      <tr>
+        <td><%= i + 1 %>:</td>
+        <td><%= p.title %></td>
+        <td><%= link_to 'visit', :controller => :page, :action => :view, :id => p.id %></td>
+        <td><%= link_to 'administer', :controller => :page, :action => :concept_bundle_interface, :id => p.id %></td>
+      </tr>
+    <% end %>
+  </table>
+
  </div>
-
-
-

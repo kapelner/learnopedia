@@ -11,4 +11,8 @@ class PageController < ApplicationController
     @page = Page.find(params[:id])
         
   end
+
+  def view
+    @page = Page.find(params[:id])
+  end
 end

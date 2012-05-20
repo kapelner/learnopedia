@@ -3,7 +3,7 @@ require 'open-uri'
 class Page < ActiveRecord::Base
   has_many :concept_bundles
 
-  include ParseTools
+  include ParseAndRewriteTools
 
   def Page.create_learnopedia_page_by_url!(url)
     doc = Nokogiri::HTML(open(url))
