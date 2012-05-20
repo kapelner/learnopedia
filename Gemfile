@@ -18,6 +18,8 @@ group :production do
 #  gem "exception_notification", :git => "git://github.com/rails/exception_notification.git", :require => "exception_notifier"
 end
 
+#my comment
+
 group :development do
   gem 'mysql', :platforms => :mingw
   gem 'win32-open3-19', :platforms => :mingw
