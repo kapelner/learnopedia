@@ -8,8 +8,7 @@ class PageController < ApplicationController
   end
 
   def concept_bundle_interface
-    @page = Page.find(params[:id])
-        
+    @page = Page.find(params[:id])        
   end
 
   def view
