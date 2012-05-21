@@ -6,8 +6,9 @@ Learnopedia::Application.routes.draw do
 
   root :to => 'page#index'
 
-  get "page/view"
-  get "page/concept_bundle_interface"
-  post "page/concept_bundle_interface"
+  get "page/student_view"
+  get "page/contributor_view"
+  post "page/contributor_view"
+  post "page/add_prerequisite"
   
 end

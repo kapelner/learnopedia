@@ -7,11 +7,17 @@ class PageController < ApplicationController
     @pages = Page.all
   end
 
-  def concept_bundle_interface
+  def contributor_view
     @page = Page.find(params[:id])        
   end
 
-  def view
+  def add_prerequisite
+    @page = Page.find(params[:new_prerequisite][:page_id])
+    @page.add_prerequisite!(params[:new_prerequisite][:url])
+    redirect_to :action => :contributor_view, :id => @page.id
+  end
+
+  def student_view
     @page = Page.find(params[:id])
   end
 end

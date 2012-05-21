@@ -1,4 +1,4 @@
 class Prerequisite < ActiveRecord::Base
-  belong_to :page
+  has_and_belongs_to_many :pages
 
 end

@@ -1,0 +1,19 @@
+<div id="prerequisites">
+  <h2>Prerequisites</h2>
+
+  <ol>
+    <% @page.prerequisites.each do |prereq| %>
+      <li><%= title_link_to_prerequisite(prereq, contributor) %></li>
+    <% end %>
+    <% if contributor %>
+      <li>
+        <%= form_for :new_prerequisite, :url => {:action => :add_prerequisite} do |f| %>
+          <%= f.hidden_field :page_id, :value => @page.id %>
+          URL of Wikipedia Page:
+          <%= f.text_field :url %>
+          <%= submit_tag " Add Wikipedia Page As Prerequisite to this Page " %>
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+</div>

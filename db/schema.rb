@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120518195307) do
+ActiveRecord::Schema.define(:version => 20120521213555) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -40,15 +40,17 @@ ActiveRecord::Schema.define(:version => 20120518195307) do
 
   add_index "pages", ["url"], :name => "index_pages_on_url", :unique => true
 
+  create_table "pages_prerequisites", :id => false, :force => true do |t|
+    t.integer "prerequisite_id"
+    t.integer "page_id"
+  end
+
   create_table "prerequisites", :force => true do |t|
-    t.integer  "page_id"
     t.string   "title"
     t.string   "url"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  add_index "prerequisites", ["page_id"], :name => "index_prerequisites_on_page_id"
 
   create_table "questions", :force => true do |t|
     t.integer  "concept_bundle_id"
