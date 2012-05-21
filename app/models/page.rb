@@ -10,13 +10,13 @@ class Page < ActiveRecord::Base
     doc = Nokogiri::HTML(open(url))
     Page.create({
       :url => url,
-      :html => parse_content_from_wikipedia_article(doc),
-      :title => parse_title_from_wikipedia_article(doc)
+      :html => Page.parse_content_from_wikipedia_article(doc),
+      :title => Page.parse_title_from_wikipedia_article(doc)
     })
   end
 
   def add_prerequisite!(url)
-    self.prerequisites << Prerequisite.create(:url => url, :title => parse_title_from_wikipedia_article(Nokogiri::HTML(open(url))))
+    self.prerequisites << Prerequisite.create(:url => url, :title => Page.parse_title_from_wikipedia_article(Nokogiri::HTML(open(url))))
   end
 
   attr_accessor :learnopedia_html
@@ -28,11 +28,11 @@ class Page < ActiveRecord::Base
   end
 
   private
-  def parse_title_from_wikipedia_article(nokogiri_doc)
+  def Page.parse_title_from_wikipedia_article(nokogiri_doc)
     nokogiri_doc.xpath("//h1[@id='firstHeading']").xpath("//span[@dir='auto']").inner_html
   end
 
-  def parse_content_from_wikipedia_article(nokogiri_doc)
+  def Page.parse_content_from_wikipedia_article(nokogiri_doc)
     nokogiri_doc.xpath("//div[@id='content']").to_s
   end  
 end
