@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120521213555) do
+ActiveRecord::Schema.define(:version => 20120522201512) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -23,19 +23,19 @@ ActiveRecord::Schema.define(:version => 20120521213555) do
 
   create_table "concept_bundles", :force => true do |t|
     t.integer  "page_id"
-    t.integer  "string_index"
-    t.integer  "user_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.string   "title"
+    t.string   "title",          :limit => 760
+    t.integer  "html_span_id"
+    t.integer  "contributor_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.text     "html",       :limit => 16777215
+    t.string   "url",        :limit => 760
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
-    t.string   "url",        :limit => 760
   end
 
   add_index "pages", ["url"], :name => "index_pages_on_url", :unique => true
@@ -44,6 +44,9 @@ ActiveRecord::Schema.define(:version => 20120521213555) do
     t.integer "prerequisite_id"
     t.integer "page_id"
   end
+
+  add_index "pages_prerequisites", ["page_id"], :name => "index_pages_prerequisites_on_page_id"
+  add_index "pages_prerequisites", ["prerequisite_id"], :name => "index_pages_prerequisites_on_prerequisite_id"
 
   create_table "prerequisites", :force => true do |t|
     t.string   "title"

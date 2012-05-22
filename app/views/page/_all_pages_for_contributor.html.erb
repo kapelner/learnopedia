@@ -1,0 +1,15 @@
+<tr>
+  <th></th>
+  <th>Title</th>
+  <th colspan="2" align="center">
+    View as a ...
+  </th>
+</tr>
+<% @pages.each_with_index do |p, i| %>
+  <tr>
+    <td><%= i + 1 %>:</td>
+    <td><%= p.title %></td>
+    <td align="center"><%= link_to 'student', :controller => :page, :action => :student_view, :id => p.id %></td>
+    <td align="center"><%= link_to 'contributor', :controller => :page, :action => :contributor_view, :id => p.id %></td>
+  </tr>
+<% end %>

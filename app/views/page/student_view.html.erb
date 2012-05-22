@@ -1,3 +1,5 @@
+<%= link_to "Contributor View", {:action => "contributor_view", :id => @page.id} if user_signed_in? %>
+
 <div style="text-align:left;">
   <%= render 'prerequisites', :contributor => false %>
   <%= render 'code_for_displaying_modified_wikipedia_html' %>

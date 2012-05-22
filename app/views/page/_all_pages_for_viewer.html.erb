@@ -1,0 +1,10 @@
+<tr>
+  <th></th>
+  <th></th>
+</tr>
+<% @pages.each_with_index do |p, i| %>
+  <tr>
+    <td><%= i + 1 %>:</td>
+    <td><%= link_to p.title, :controller => :page, :action => :student_view, :id => p.id %></td>
+  </tr>
+<% end %>

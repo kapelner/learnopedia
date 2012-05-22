@@ -10,6 +10,7 @@ gem 'rak'
 gem 'POpen4'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'devise'
+gem 'cancan'
 gem 'carrierwave'
 gem 'rubystats'
 

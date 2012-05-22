@@ -1,31 +1,21 @@
-<h2>Add a Page</h2>
+<% if user_signed_in? %>
+  <h2>Add a Page</h2>
 
-<div style="text-align:left;">
-  <%= form_for :newpage do |f| %>
-    URL of Wikipedia Page:
-    <%= f.text_field :url %>
-    <%= submit_tag " Add Wikipedia Page To Learnopedia " %>
-  <% end %>
-</div>
-
-<h2>All Current Pages</h2>
-
-<div style="text-align:left;">
-
-  <table width="70%">
-    <tr>
-      <th></th>
-      <th>Title</th>
-      <th colspan="2" align="center">View as a ...</th>
-    </tr>
-    <% @pages.each_with_index do |p, i| %>
-      <tr>
-        <td><%= i + 1 %>:</td>
-        <td><%= p.title %></td>
-        <td align="center"><%= link_to 'student', :controller => :page, :action => :student_view, :id => p.id %></td>
-        <td align="center"><%= link_to 'contributor', :controller => :page, :action => :contributor_view, :id => p.id %></td>
-      </tr>
+  <div style="text-align:left;">
+    <%= form_for :newpage do |f| %>
+      URL of Wikipedia Page:
+      <%= f.text_field :url %>
+      <%= submit_tag " Add Wikipedia Page To Learnopedia " %>
     <% end %>
-  </table>
+  </div>
+<% end %>
 
- </div>
+<% if @pages.any? %>
+  <h2>All Current Pages</h2>
+
+  <div style="text-align:left;">
+    <table width="70%">
+      <%= render user_signed_in? ? 'all_pages_for_contributor' : 'all_pages_for_viewer' %>
+    </table>
+   </div>
+<% end %>
