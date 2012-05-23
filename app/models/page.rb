@@ -11,7 +11,8 @@ class Page < ActiveRecord::Base
     Page.create({
       :url => url,
       :html => Page.parse_content_from_wikipedia_article(doc),
-      :title => Page.parse_title_from_wikipedia_article(doc)
+      :title => Page.parse_title_from_wikipedia_article(doc),
+      :wiki_name => url.split("/").last
     })
   end
 
@@ -20,8 +21,8 @@ class Page < ActiveRecord::Base
   end
 
   attr_accessor :learnopedia_html
-  def wikihtml_links_rewritten_concept_bundles_added_their_text_highlighted
-    rewrite_links_to_wikipedia_or_learnopedia
+  def wikihtml_links_rewritten_concept_bundles_added_their_text_highlighted(is_contributor)
+    rewrite_links_to_wikipedia_or_learnopedia(is_contributor)
     tag_all_text_blocks_with_possible_cb_tag
     self.concept_bundles.each{|cb| assign_text_blocks_to_cb(cb)}
     @learnopedia_html
@@ -33,6 +34,6 @@ class Page < ActiveRecord::Base
   end
 
   def Page.parse_content_from_wikipedia_article(nokogiri_doc)
-    nokogiri_doc.xpath("//div[@id='content']").to_s
+    nokogiri_doc.xpath("//div[@id='content']/div[@id='bodyContent']").to_s
   end  
 end
