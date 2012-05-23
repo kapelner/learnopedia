@@ -27,4 +27,6 @@ class PageController < ApplicationController
   def student_or_contributor_view
     redirect_to :action => (user_signed_in? ? :contributor_view : :student_view), :id => params[:id]
   end
+
+  #http://www.mathjax.org/demos/mathml-samples/ (for rendering latex)
 end

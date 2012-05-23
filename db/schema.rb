@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120523023001) do
+ActiveRecord::Schema.define(:version => 20120523193928) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -23,11 +23,11 @@ ActiveRecord::Schema.define(:version => 20120523023001) do
 
   create_table "concept_bundles", :force => true do |t|
     t.integer  "page_id"
-    t.string   "title",          :limit => 760
-    t.integer  "html_span_id"
+    t.string   "title",                :limit => 760
     t.integer  "contributor_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.text     "bundle_elements_hash"
   end
 
   create_table "pages", :force => true do |t|

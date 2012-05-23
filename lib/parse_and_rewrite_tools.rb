@@ -1,7 +1,6 @@
 module ParseAndRewriteTools
 
-  TagsThatAreNotAddableToCBs = %w(h1 h2 h3 h4 h5 table tbody td tr th)
-  TagsThatAreNotSeparableFromText = %w(img sup sub a)
+
 
   #Things that should be deleted from all wikipedia pages:
   #1) The "[edit]" links
@@ -47,16 +46,57 @@ module ParseAndRewriteTools
     end
   end
 
-  def tag_all_text_blocks_with_possible_cb_tag(id, node)
-    
+  attr_accessor :num_tags_thus_far
+  def add_bundle_element_tags
+    doc = Nokogiri::HTML(self.html)
+    @num_tags_thus_far = 1
+    tag_all_text_blocks_with_possible_cb_tag(doc.xpath("//div[@id='mw-content-text']").first)
   end
 
-  def add_cb_tag(id, inner_html)
-    %Q|<span class="learnopedia_cb" id="learnopedia_cb_#{id}">#{inner_html}</span>|
+  def tag_all_text_blocks_with_possible_cb_tag(node)
+    return if @num_tags_thus_far > 10
+    
+    if node_is_bundleable?(node)
+      assign_bundle_tag(node)
+    else
+      #iterate over all the children
+      node.children.each do |child|
+        #if the tag is evil, don't recurse, otherwise recurse
+        unless TagsThatAreNotAddableToCBs.include?(child.name)
+          tag_all_text_blocks_with_possible_cb_tag(child)
+        end
+      end
+    end
   end
-  def assign_text_blocks_to_cb(cb)
-    #TO-DO
+
+  TagsThatAreNotAddableToCBs = %w(h1 h2 h3 h4 h5 table tbody td tr th html)
+  TagsThatConstituteBundle = %w(text img sup sub a comment)
+
+  def node_is_bundleable?(node)
+    #if node is bundleable, all its children have names that are in that array
+    node.children.each do |child|
+      return false unless child.name.in?(TagsThatConstituteBundle)
+    end
+    #if node is bundleable, then its tag must be addable
+    return false if node.name.in?(TagsThatAreNotAddableToCBs)
+    #if node is empty, ie there's a bunch of whitespace, return false as well
+    return false if node.text.strip.blank?
+
+    true
   end
+
+  def assign_bundle_tag(node)
+    p "TAG ##{@num_tags_thus_far} TEXT OF BUNDLEABLE NODE: #{node.text}"
+    @num_tags_thus_far += 1
+  end
+
+
+
+#    self.concept_bundles.each{|cb| assign_text_blocks_to_cb(cb)}
+
+#  def add_cb_tag(id, inner_html)
+#    %Q|<span class="learnopedia_cb" id="learnopedia_cb_#{id}">#{inner_html}</span>|
+#  end
   
 
 end
