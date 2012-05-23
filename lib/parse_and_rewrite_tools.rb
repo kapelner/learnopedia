@@ -47,10 +47,13 @@ module ParseAndRewriteTools
     end
   end
 
-  def tag_all_text_blocks_with_possible_cb_tag
-    #TO-DO
+  def tag_all_text_blocks_with_possible_cb_tag(id, node)
+    
   end
 
+  def add_cb_tag(id, inner_html)
+    %Q|<span class="learnopedia_cb" id="learnopedia_cb_#{id}">#{inner_html}</span>|
+  end
   def assign_text_blocks_to_cb(cb)
     #TO-DO
   end
