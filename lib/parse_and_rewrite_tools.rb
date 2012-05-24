@@ -58,6 +58,7 @@ module ParseAndRewriteTools
   end
 
   ActiveBundleClass = "learnopedia_bundle_element_active"
+
   def assign_bundle_tag(nodes, doc)
     return if nodes.empty?
 
@@ -83,7 +84,7 @@ module ParseAndRewriteTools
     nodes.each do |node|
       #last thing we do... for each node...
       bundle_tag.add_child(node)
-      
+
     end
 
 #    puts "\nTAG ##{@num_tags_thus_far} children_names: #{nodes.map{|node| node.name}} mama_name: #{mamas_original_name}\nTEXT OF BUNDLEABLE NODE: #{bundle_tag.text}"
