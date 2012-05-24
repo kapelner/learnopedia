@@ -59,6 +59,8 @@ module ParseAndRewriteTools
 
   ActiveBundleClass = "learnopedia_bundle_element_active"
   def assign_bundle_tag(nodes, doc)
+    return if nodes.empty?
+
     #first create the new node with proper class and id
     bundle_tag = Nokogiri::XML::Node.new('span', doc)
     #is it part of a context bundle?? TO-DO
@@ -66,12 +68,7 @@ module ParseAndRewriteTools
     bundle_tag['class'] = "#{ActiveBundleClass}_tag#{@num_tags_thus_far % 3 + 1}"
     bundle_tag['id'] = "bundle_element_#{@num_tags_thus_far}"
 
-    if nodes.first.nil?
-      puts "NODES FIRST NIL"
-      return
-    end
     #first get the parent's children
-    mamas_original_name = nodes.first.parent.name
     mamas_children = nodes.first.parent.children
     #now find index of where this first node lived
     first_loc = mamas_children.index(nodes.first)
@@ -84,10 +81,9 @@ module ParseAndRewriteTools
 
     #now we need to add the nodes in this bundle to our new tag
     nodes.each do |node|
-#      node.unlink
+      #last thing we do... for each node...
       bundle_tag.add_child(node)
-      #add text node with just a space inside of it
-      #TO-DO
+      
     end
 
 #    puts "\nTAG ##{@num_tags_thus_far} children_names: #{nodes.map{|node| node.name}} mama_name: #{mamas_original_name}\nTEXT OF BUNDLEABLE NODE: #{bundle_tag.text}"
