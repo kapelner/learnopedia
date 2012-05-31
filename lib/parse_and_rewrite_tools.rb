@@ -49,105 +49,17 @@ module ParseAndRewriteTools
     #first get the html and get just the relevant part of the body
     root_where_content_first_appears = doc_with_rewritten_links.xpath("//div[@id='mw-content-text']").first
     #set the counter
-    @num_tags_thus_far = 1
+    @num_tags_thus_far = 0
 
     #now start the recursion process
-    tag_all_text_blocks_with_possible_cb_tag(root_where_content_first_appears, doc_with_rewritten_links)
+    tag_all_words_with_cb_tag(root_where_content_first_appears, doc_with_rewritten_links)
     #since we modified the nokogiri doc, all we have to do is send back the new one
     doc_with_rewritten_links.to_s
   end
 
-  ActiveBundleClass = "learnopedia_bundle_element_active"
 
-  def assign_bundle_tag(nodes, doc)
-    return if nodes.empty?
-
-    #first create the new node with proper class and id
-    bundle_tag = Nokogiri::XML::Node.new('span', doc)
-    #is it part of a context bundle?? TO-DO
-    #    self.concept_bundles.each{|cb| assign_text_blocks_to_cb(cb)}
-    bundle_tag['class'] = "#{ActiveBundleClass}_tag#{@num_tags_thus_far % 3 + 1}"
-    bundle_tag['id'] = "bundle_element_#{@num_tags_thus_far}"
-
-    #first get the parent's children
-    mamas_children = nodes.first.parent.children
-    #now find index of where this first node lived
-    first_loc = mamas_children.index(nodes.first)
-    last_loc = mamas_children.index(nodes.last)
-    #now set the children manually to not screw up the order
-    #we have to go through these gymnastics because the children's setter needs a NodeSet not just an array of Nodes
-    new_children = Nokogiri::XML::NodeSet.new(doc, mamas_children[0...first_loc] + Nokogiri::XML::NodeSet.new(doc, [bundle_tag]) + mamas_children[(last_loc + 1)..-1])
-
-    nodes.first.parent.children = new_children
-
-    #now we need to add the nodes in this bundle to our new tag
-    nodes.each do |node|
-      #last thing we do... for each node...
-      bundle_tag.add_child(node)
-
-    end
-
-#    puts "\nTAG ##{@num_tags_thus_far} children_names: #{nodes.map{|node| node.name}} mama_name: #{mamas_original_name}\nTEXT OF BUNDLEABLE NODE: #{bundle_tag.text}"
-    @num_tags_thus_far += 1
-  end
-
-=begin
-page = Page.first; nil
-doc = Nokogiri::HTML(page.html); nil
-root_where_content_first_appears = doc.xpath("//div[@id='mw-content-text']").first; nil
-
-ps = root_where_content_first_appears.xpath("//p"); nil
-=end
-
-  def tag_all_text_blocks_with_possible_cb_tag(node, doc)
-#    return if @num_tags_thus_far > 20
-
-    if node.children.any?
-      #now we go hunting for children that are "bundleable bunches"
-      last_bunch = []
-      node.children.each do |child|
-        if node_is_bundleable?(child)
-          last_bunch << child
-        else
-          #3 steps
-          #1. combine the last bunch into a bundle (if there is anything to begin with)
-          if last_bunch.any?
-            if last_bunch.length == 1
-              last_bunch = last_bunch.first.children
-            end
-            assign_bundle_tag(last_bunch, doc)
-#            puts "ran through intermediate"
-          end
-          #2. reset last bunch
-          last_bunch = []
-          #3. since this child was not bundleable, do the recursion if necessary
-          unless child.name.in?(TagsThatAreNotAddableToCBs)
-            tag_all_text_blocks_with_possible_cb_tag(child, doc)
-          end
-        end
-      end
-      assign_bundle_tag(last_bunch, doc) if last_bunch.any?
-#      p "last_bunch at bottom: #{last_bunch.map{|node| node.name}}"
-    elsif node_is_bundleable?(node)
-      assign_bundle_tag(node)
-#      p "ran through failsafe"
-    end
-    
-#    if node_is_bundleable?(node)
-#      assign_bundle_tag([node], doc)
-#    else
-#      #iterate over all the children
-#      node.children.each do |child|
-#        #if the tag is evil, don't recurse, otherwise recurse
-#        unless TagsThatAreNotAddableToCBs.include?(child.name)
-#          tag_all_text_blocks_with_possible_cb_tag(child, doc)
-#        end
-#      end
-#    end
-  end
-
-  TagsThatAreNotAddableToCBs = %w(h1 h2 h3 h4 h5 table tbody td tr th html)
-  TagsThatConstituteBundle = %w(text img sup sub a comment i b u code dl dd span)
+  TagsThatAreNotAddableToCBs = %w(h1 h2 h3 h4 h5 table tbody td tr th html pre)
+  TagsThatConstituteBundle = %w(text img sup sub a comment i b u code span)
 
   def node_is_bundleable?(node)
     #if node is bundleable, all its children have names that are in that array
@@ -156,9 +68,53 @@ ps = root_where_content_first_appears.xpath("//p"); nil
     end
     #if node is bundleable, then its tag must be addable
     return false if node.name.in?(TagsThatAreNotAddableToCBs)
+#    puts "\n\n dl or dd text: blank? #{node.text.strip.blank?} #{node.to_s}" if node.name.in?(%w(dl dd))
     #if node is empty, ie there's a bunch of whitespace, return false as well
-    return false if node.text.strip.blank? and node.name != "img"
+    return false if node.text.strip.blank? and !node.name.in?(%w(dd dl img))
     true
   end
 
+  
+
+  def tag_all_words_with_cb_tag(node, doc)    
+    if node_is_bundleable?(node)
+      #iterate over children and make a node set for each child
+      new_children_as_node_array = node.children.map do |ch|
+        create_cb_tags_for_bundleable_node(ch, doc)
+      end.flatten
+      #now set this nodeset equal to the bundleable node's children
+      node.children = Nokogiri::XML::NodeSet.new(doc, new_children_as_node_array)
+    elsif !node.name.in?(TagsThatAreNotAddableToCBs)
+      #just recurse to the point where the node is bundleable...
+      node.children.each do |ch|
+        tag_all_words_with_cb_tag(ch, doc)
+      end
+    end
+  end
+
+  def create_cb_tags_for_bundleable_node(node, doc)
+    
+    if node.text?
+      text_cb_tags = node.text.split(/\s/).map{|text_bundle| create_cb_tag_node_from_text(text_bundle, doc)}
+      text_cb_tags.map{|node| [node, Nokogiri::XML::Text.new("\n", doc)]}.flatten
+    else      
+      create_cb_tag_node_from_text(node.to_s, doc)
+    end
+  end
+
+  ActiveBundleClass = "learnopedia_bundle_element_active"
+  
+  def create_cb_tag_node_from_text(text, doc)
+    cb_tag = Nokogiri::XML::Node.new('span', doc)
+    #is it part of a context bundle?? TO-DO
+    #    self.concept_bundles.each{|cb| assign_text_blocks_to_cb(cb)}
+    cb_tag['class'] = "#{ActiveBundleClass}_tag#{@num_tags_thus_far % 3 + 1}"
+    cb_tag['id'] = "bundle_element_#{@num_tags_thus_far}"
+    cb_tag.inner_html = text
+
+#    puts "TAG ##{@num_tags_thus_far} cb_tag class: #{cb_tag.class} text: #{text}"
+    @num_tags_thus_far += 1
+    cb_tag
+  end
+  
 end
