@@ -28,5 +28,22 @@ class PageController < ApplicationController
     redirect_to :action => (user_signed_in? ? :contributor_view : :student_view), :id => params[:id]
   end
 
+  def add_concept_bundle
+    #dejsonify the cb_ids
+    page_id = params[:concept_bundle][:page_id]
+    cb_ids = JSON.parse(params[:concept_bundle][:cb_ids])
+    cb_id_hash = cb_ids.inject({}){|hash, cb_id| hash[cb_id.to_i] = 1; hash}
+    cb = ConceptBundle.create({
+      :page_id => page_id,
+      :contributor_id => current_user.id,
+      :bundle_elements_hash => cb_id_hash
+    })
+    redirect_to :action => :manage_concept_bundle, :id => cb.id
+  end
+
+  def manage_concept_bundle
+    @cb = ConceptBundle.find(params[:id])
+  end
+
   #http://www.mathjax.org/demos/mathml-samples/ (for rendering latex)
 end

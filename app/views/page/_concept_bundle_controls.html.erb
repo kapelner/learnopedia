@@ -3,4 +3,11 @@
   <%= i + 1 %>. <%= cb.title %>
 <% end %>
 
-<input type="button" value=" Add " />
+
+<%= form_for :concept_bundle, 
+      :url => {:action => :add_concept_bundle},
+      :html => {:onsubmit => "return add_cb_learnopedia();"} do |f| %>
+  <%= f.hidden_field :page_id, :value => @page.id %>
+  <%= f.hidden_field :cb_ids %>
+  <%= submit_tag " Add ", {:id => 'cb_add', :disabled => true} %>
+<% end %>

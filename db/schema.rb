@@ -33,13 +33,11 @@ ActiveRecord::Schema.define(:version => 20120523193928) do
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.text     "html",       :limit => 16777215
-    t.string   "url",        :limit => 760
+    t.string   "url",        :limit => 600
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.string   "wiki_name",  :limit => 760
   end
-
-  add_index "pages", ["url"], :name => "index_pages_on_url", :unique => true
 
   create_table "pages_prerequisites", :id => false, :force => true do |t|
     t.integer "prerequisite_id"

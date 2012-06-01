@@ -92,8 +92,7 @@ module ParseAndRewriteTools
     end
   end
 
-  def create_cb_tags_for_bundleable_node(node, doc)
-    
+  def create_cb_tags_for_bundleable_node(node, doc)    
     if node.text?
       text_cb_tags = node.text.split(/\s/).map{|text_bundle| create_cb_tag_node_from_text(text_bundle, doc)}
       text_cb_tags.map{|node| [node, Nokogiri::XML::Text.new("\n", doc)]}.flatten
@@ -103,13 +102,14 @@ module ParseAndRewriteTools
   end
 
   ActiveBundleClass = "learnopedia_bundle_element_active"
+  InActiveBundleClass = "learnopedia_bundle_element_inactive"
   
   def create_cb_tag_node_from_text(text, doc)
     cb_tag = Nokogiri::XML::Node.new('span', doc)
     #is it part of a context bundle?? TO-DO
     #    self.concept_bundles.each{|cb| assign_text_blocks_to_cb(cb)}
-    cb_tag['class'] = "#{ActiveBundleClass}_tag#{@num_tags_thus_far % 3 + 1}"
-    cb_tag['id'] = "bundle_element_#{@num_tags_thus_far}"
+    cb_tag['class'] = "#{InActiveBundleClass}"
+    cb_tag['cb_id'] = "#{@num_tags_thus_far}"
     cb_tag.inner_html = text
 
 #    puts "TAG ##{@num_tags_thus_far} cb_tag class: #{cb_tag.class} text: #{text}"

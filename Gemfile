@@ -29,6 +29,7 @@ group :development do
   gem 'hirb'
   gem 'wirble'
   gem 'awesome_print'
+  gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
 end
 
 # Gems used only for assets and not required

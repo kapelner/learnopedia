@@ -4,4 +4,8 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
+//= require application
+//= require prototype
+//= require json
+//= require rails
 //= require_tree .

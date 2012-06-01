@@ -15,5 +15,6 @@ Learnopedia::Application.routes.draw do
   get "page/contributor_view"
   post "page/contributor_view"
   post "page/add_prerequisite"
-  
+  post "page/add_concept_bundle"
+  get "page/manage_concept_bundle"
 end
