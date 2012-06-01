@@ -15,6 +15,6 @@ class User < ActiveRecord::Base
     mathlosopher@gmail.com
   )
   def dictator?
-    Dictators.include?(self.email)
+    self.email.in?(Dictators)
   end
 end

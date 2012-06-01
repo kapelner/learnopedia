@@ -1,6 +1,8 @@
 require 'open-uri'
 
 class Page < ActiveRecord::Base
+  has_paper_trail
+
   has_many :concept_bundles, :dependent => :destroy
   has_and_belongs_to_many :prerequisites
 
