@@ -19,5 +19,15 @@
     </td>
   </tr>
 </table>
+<script type="text/javascript">
+var all_cb_spans = $$(".learnopedia_bundle_element_inactive");
+for (var i = 0; i < all_cb_spans.length; i++){
+  all_cb_spans[i].ordinal_cb_id = i;
+}
 
-<%= render 'javascript_for_contributor_view' %>
+Event.observe(window, 'load', function(){
+for (var i = 0; i < all_cb_spans.length; i++){
+  all_cb_spans[i].observe('click', clicked_on_cb_span(all_cb_spans[i]));
+}
+});
+</script>
