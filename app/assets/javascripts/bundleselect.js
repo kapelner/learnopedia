@@ -51,7 +51,8 @@ return function(){
 
 function add_cb_learnopedia(){
     //package up all cb_id's to send back to the server
-    var cb_ids = user_cb_spans.map(function(cb_span){return cb_span.readAttribute('cb_id')});
-    $('concept_bundle_cb_ids').value = cb_ids.toJSONString();
+    var cb_ids = $.map(user_cb_spans, function(cb_span, i){return $(cb_span).attr('cb_id')});
+    alert(cb_ids.toJSONString())
+    $('#concept_bundle_cb_ids').attr('value', $.getJSON(cb_ids));
     return true;
 }
