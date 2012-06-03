@@ -1,8 +1,6 @@
 class ConceptBundleController < ApplicationController
   include ParseAndRewriteTools
 
-  respond_to :html, :json
-
   before_filter :authenticate_user!
   
   def add
@@ -21,7 +19,7 @@ class ConceptBundleController < ApplicationController
 
   def edit_title
     @cb = ConceptBundle.find(params[:id])
-    @cb.update_attributes(params[:concept_bundle][:title])
+    @cb.update_attributes(params[:concept_bundle])
     render :nothing => true
   end
 

@@ -1,5 +1,5 @@
 Concept Title (click to edit)
-<h2><%= best_in_place @cb, :title, :type => :input, :path => {:action => :edit_title} %></h2>
+<h2><%= best_in_place @cb, :title, :type => :input, :path => {:action => :edit_title, :id => @cb.id} %></h2>
 
 <div id="concept_bundle_text">
   <%= render 'shared/wikipedia_css_stuff' %>
