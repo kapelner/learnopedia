@@ -10,13 +10,13 @@ var ending_id = 0;
 function clicked_on_cb_span(cb_span){
 return function(){
   //do some resets
-  $('cb_add').disabled = true;
+  $('#cb_add').attr('disabled', true)
   user_cb_spans = [];
   //completed the bundle assignment
   if (clicked_once){
     clicked_once = false;
     if (cb_span == beginning_span){
-      cb_span.removeClassName('learnopedia_bundle_element_selected');
+      $(cb_span).removeClass('learnopedia_bundle_element_selected');
     }
     else {
       //find all spans in between this cb_span and beginning_span and "select" those
@@ -24,18 +24,18 @@ return function(){
       beginning_id = Math.min(beginning_span.ordinal_cb_id, cb_span.ordinal_cb_id);
       ending_id = Math.max(beginning_span.ordinal_cb_id, cb_span.ordinal_cb_id);
 
-      user_cb_spans = all_cb_spans.slice(beginning_id, ending_id + 1);
-      user_cb_spans.each(function(cb_span){cb_span.addClassName('learnopedia_bundle_element_selected');});
+      user_cb_spans = $(all_cb_spans).slice(beginning_id, ending_id + 1);
+      $.each(user_cb_spans, function(i, cb_span){$(cb_span).addClass('learnopedia_bundle_element_selected');});
 
-      $('cb_add').disabled = false;
+      $('#cb_add').attr('disabled', false)
     }
 
   }
   else if (clicked_twice){
         clicked_twice = false;
-        $('cb_add').disabled = true;
+        $('#cb_add').attr('disabled', true)
         user_cb_spans = all_cb_spans.slice(beginning_id, ending_id + 1);
-        user_cb_spans.each(function(cb_span){cb_span.removeClassName('learnopedia_bundle_element_selected');});
+        $.each(user_cb_spans, function(i, cb_span){$(cb_span).removeClass('learnopedia_bundle_element_selected');});
         
   }
 
@@ -44,7 +44,7 @@ return function(){
     clicked_once = true;
     //highlight this span
     beginning_span = cb_span;
-    cb_span.addClassName('learnopedia_bundle_element_selected');
+    $(cb_span).addClass('learnopedia_bundle_element_selected');
   }
 }
 }

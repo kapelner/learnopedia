@@ -20,14 +20,14 @@
   </tr>
 </table>
 <script type="text/javascript">
-  var all_cb_spans = $$(".learnopedia_bundle_element_inactive");
+  var all_cb_spans = jQuery(".learnopedia_bundle_element_inactive").toArray();
   for (var i = 0; i < all_cb_spans.length; i++){
     all_cb_spans[i].ordinal_cb_id = i;
   }
 
-  Event.observe(window, 'load', function(){
+  $(window).bind('load', function(){
   for (var i = 0; i < all_cb_spans.length; i++){
-    all_cb_spans[i].observe('click', clicked_on_cb_span(all_cb_spans[i]));
+    $(all_cb_spans[i]).bind('click', clicked_on_cb_span(all_cb_spans[i]));
   }
   });
 </script>
