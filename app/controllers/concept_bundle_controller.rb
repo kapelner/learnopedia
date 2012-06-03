@@ -16,6 +16,10 @@ class ConceptBundleController < ApplicationController
     redirect_to :action => :index, :id => cb.id
   end
 
+  def edit_title
+    
+  end
+
   def index
     @cb = ConceptBundle.find(params[:id], :include => :page)
     #now we need to get the html correct
