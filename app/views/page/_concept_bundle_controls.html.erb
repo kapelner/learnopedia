@@ -1,11 +1,10 @@
 <h2>Concept Bundles</h2>
 <% @page.concept_bundles.each_with_index do |cb, i| %>
-  <%= i + 1 %>. <%= cb.title %>
+  <%= link_to "#{i + 1}. #{cb.title}", :controller => :concept_bundle, :action => :index, :id => cb.id %><br />
 <% end %>
 
-
 <%= form_for :concept_bundle, 
-      :url => {:action => :add_concept_bundle},
+      :url => {:controller => :concept_bundle, :action => :add},
       :html => {:onsubmit => "return add_cb_learnopedia();"} do |f| %>
   <%= f.hidden_field :page_id, :value => @page.id %>
   <%= f.hidden_field :cb_ids %>

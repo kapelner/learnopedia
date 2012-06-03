@@ -4,6 +4,7 @@
   <th colspan="2" align="center">
     View as a ...
   </th>
+  <th align="center">Delete</th>
 </tr>
 <% @pages.each_with_index do |p, i| %>
   <tr>
@@ -11,5 +12,7 @@
     <td><%= p.title %></td>
     <td align="center"><%= link_to 'student', :controller => :page, :action => :student_view, :id => p.id %></td>
     <td align="center"><%= link_to 'contributor', :controller => :page, :action => :contributor_view, :id => p.id %></td>
+    <td align="center"><%= button_to 'x', {:controller => :page, :action => :delete_page, :id => p.id},
+                                        {:confirm => "Are you sure?", :method => :delete} %></td>
   </tr>
 <% end %>

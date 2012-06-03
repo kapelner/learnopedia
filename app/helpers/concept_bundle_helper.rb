@@ -1,0 +1,2 @@
+module ConceptBundleHelper
+end

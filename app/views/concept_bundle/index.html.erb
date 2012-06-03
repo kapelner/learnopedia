@@ -1,0 +1,13 @@
+<h2>CB id: <%= @cb.id %></h2>
+
+<div id="concept_bundle_text">
+  <%= render 'shared/wikipedia_css_stuff' %>
+  <div class="wikipedia_text">
+    <%= raw(@html_with_only_cb_showing) %>
+  </div>
+</div>
+
+<div>
+  Add Video
+</div>
+

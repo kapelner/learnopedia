@@ -1,5 +1,7 @@
 Learnopedia::Application.routes.draw do
 
+  
+
   devise_for :users
 
   mount RailsAdmin::Engine => '/dbadmin', :as => 'rails_admin'
@@ -14,7 +16,8 @@ Learnopedia::Application.routes.draw do
   get "page/student_view"
   get "page/contributor_view"
   post "page/contributor_view"
+  delete "page/delete_page"
   post "page/add_prerequisite"
-  post "page/add_concept_bundle"
-  get "page/manage_concept_bundle"
+  post "concept_bundle/add"
+  get "concept_bundle/index"
 end

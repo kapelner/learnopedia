@@ -1,3 +1,19 @@
 // Place all the styles related to the Page controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+span.learnopedia_bundle_element_active {
+    background-color: rgb(125,225,255);
+}
+
+span.learnopedia_bundle_element_inactive {
+}
+
+span.learnopedia_bundle_element_selected {
+    background-color: rgb(225, 225, 255);
+}
+
+table#contributor_table {
+    border: 1px solid black;
+    padding: 5px;
+}

@@ -1,17 +1,15 @@
 module ParseAndRewriteTools
 
-
-
   #Things that should be deleted from all wikipedia pages:
   #1) The "[edit]" links
 
-  def rewrite_links_to_wikipedia_or_learnopedia(is_contributor)
+  def rewrite_links_to_wikipedia_or_learnopedia(page, is_contributor)
     #titles_to_id_hash = Page.all.inject({}){|hash, p| hash[p.title] = p.id; hash}
     pages = Page.all
     titles_to_id = Hash[pages.map{|p| p.wiki_name}.zip(pages.map{|p| p.id})]
     #titles_to_id.contains?("QWuadratasdfmasdpf")
 
-    doc = Nokogiri::HTML(self.html)
+    doc = Nokogiri::HTML(page.html)
     
     #Remove edit links
     doc.xpath("//span[@class='editsection']").each {|edit| edit.remove}
@@ -45,16 +43,16 @@ module ParseAndRewriteTools
   end
 
   attr_accessor :num_tags_thus_far
-  def add_bundle_element_tags(doc_with_rewritten_links)
+  def add_bundle_element_tags(page, doc_with_rewritten_links)
     #first get the html and get just the relevant part of the body
     root_where_content_first_appears = doc_with_rewritten_links.xpath("//div[@id='mw-content-text']").first
     #set the counter
     @num_tags_thus_far = 0
 
     #now start the recursion process
-    tag_all_words_with_cb_tag(root_where_content_first_appears, doc_with_rewritten_links)
+    tag_all_words_with_cb_tag(page, root_where_content_first_appears, doc_with_rewritten_links)
     #since we modified the nokogiri doc, all we have to do is send back the new one
-    doc_with_rewritten_links.to_s
+    doc_with_rewritten_links
   end
 
 
@@ -76,35 +74,35 @@ module ParseAndRewriteTools
 
   
 
-  def tag_all_words_with_cb_tag(node, doc)    
+  def tag_all_words_with_cb_tag(page, node, doc)
     if node_is_bundleable?(node)
       #iterate over children and make a node set for each child
       new_children_as_node_array = node.children.map do |ch|
-        create_cb_tags_for_bundleable_node(ch, doc)
+        create_cb_tags_for_bundleable_node(page, ch, doc)
       end.flatten
       #now set this nodeset equal to the bundleable node's children
       node.children = Nokogiri::XML::NodeSet.new(doc, new_children_as_node_array)
     elsif !node.name.in?(TagsThatAreNotAddableToCBs)
       #just recurse to the point where the node is bundleable...
       node.children.each do |ch|
-        tag_all_words_with_cb_tag(ch, doc)
+        tag_all_words_with_cb_tag(page, ch, doc)
       end
     end
   end
 
-  def create_cb_tags_for_bundleable_node(node, doc)    
+  def create_cb_tags_for_bundleable_node(page, node, doc)
     if node.text?
-      text_cb_tags = node.text.split(/\s/).map{|text_bundle| create_cb_tag_node_from_text(text_bundle, doc)}
+      text_cb_tags = node.text.split(/\s/).map{|text_bundle| create_cb_tag_node_from_text(page, text_bundle, doc)}
       text_cb_tags.map{|node| [node, Nokogiri::XML::Text.new("\n", doc)]}.flatten
     else      
-      create_cb_tag_node_from_text(node.to_s, doc)
+      create_cb_tag_node_from_text(page, node.to_s, doc)
     end
   end
 
   ActiveBundleClass = "learnopedia_bundle_element_active"
   InActiveBundleClass = "learnopedia_bundle_element_inactive"
   
-  def create_cb_tag_node_from_text(text, doc)
+  def create_cb_tag_node_from_text(page, text, doc)
     cb_tag = Nokogiri::XML::Node.new('span', doc)
     #is it part of a context bundle?? TO-DO
     #    self.concept_bundles.each{|cb| assign_text_blocks_to_cb(cb)}
@@ -115,6 +113,23 @@ module ParseAndRewriteTools
 #    puts "TAG ##{@num_tags_thus_far} cb_tag class: #{cb_tag.class} text: #{text}"
     @num_tags_thus_far += 1
     cb_tag
+  end
+
+  def hide_page_except_for_cb(cb, doc)
+    #first hide all other cb's
+    (doc.xpath("//span[@class='#{ActiveBundleClass}']") + doc.xpath("//span[@class='#{InActiveBundleClass}']")).each do |cb_tag|
+      #if this tag is NOT part of the cb of interest, make it disappear
+      unless cb.bundle_elements_hash[cb_tag['cb_id'].to_i]
+        cb_tag['style'] = 'display:none'
+      end
+    end
+    #now we gotta hide all the other tags that are evil
+    TagsThatAreNotAddableToCBs.each do |html_tag_type_to_hide|
+      doc.xpath("//#{html_tag_type_to_hide}").each do |html_tag_to_hide|
+        html_tag_to_hide['style'] = 'display:none'
+      end
+    end
+    doc
   end
   
 end
