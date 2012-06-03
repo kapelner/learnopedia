@@ -84,6 +84,9 @@ GEM
     bbenezech-nested_form (0.0.6)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
+    best_in_place (1.1.2)
+      jquery-rails
+      rails (~> 3.1)
     bootstrap-sass (2.0.3)
     builder (3.0.0)
     cancan (1.6.7)
@@ -212,6 +215,7 @@ DEPENDENCIES
   POpen4
   awesome_print
   backup
+  best_in_place
   cancan
   carrierwave
   coffee-rails

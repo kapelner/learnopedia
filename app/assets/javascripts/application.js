@@ -5,7 +5,9 @@
 // the compiled file.
 //
 //= require application
-//= require prototype
+//= require jquery
+//= require jquery.purr
 //= require json
 //= require rails
-//= require_tree .
+//= require best_in_place
+//= require bundleselect

@@ -17,6 +17,7 @@ gem 'paper_trail', :git => 'git://github.com/airblade/paper_trail.git'
 gem 'exception_notification', :git => "git://github.com/rails/exception_notification.git", :require => "exception_notifier"
 gem 'sunspot_rails'
 gem 'sunspot_solr' #USE from CMD: bundle exec rake sunspot:solr:run
+gem 'best_in_place'
 
 group :production do
   gem 'mysql2', :git => 'git://github.com/brianmario/mysql2.git'

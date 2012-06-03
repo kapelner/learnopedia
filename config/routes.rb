@@ -2,6 +2,8 @@ Learnopedia::Application.routes.draw do
 
   
 
+  get "concept_video/add"
+
   devise_for :users
 
   mount RailsAdmin::Engine => '/dbadmin', :as => 'rails_admin'

@@ -1,0 +1,8 @@
+<%= form_for :concept_video,
+  :url => {:controller => :concept_video, :action => :add},
+  :html => {:multipart => true} do |f| %>
+  <%= f.hidden_field :avatar_cache %>
+  Video File: <%= f.file_field :video %><br />
+  Description: <%= f.text_field :description %><br />
+  <%= f.submit " Upload " %>
+<% end %>

@@ -30,7 +30,7 @@ class PageController < ApplicationController
 
   def delete_page
     Page.find(params[:id]).destroy
-    redirect_to :action => (user_signed_in? ? :contributor_view : :student_view), :id => params[:id]
+    redirect_to :action => :index
   end
 
   #http://www.mathjax.org/demos/mathml-samples/ (for rendering latex)

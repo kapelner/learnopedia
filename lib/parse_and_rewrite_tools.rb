@@ -115,21 +115,36 @@ module ParseAndRewriteTools
     cb_tag
   end
 
+  TagsThatCannotBeHidden = %w(html body)
   def hide_page_except_for_cb(cb, doc)
-    #first hide all other cb's
-    (doc.xpath("//span[@class='#{ActiveBundleClass}']") + doc.xpath("//span[@class='#{InActiveBundleClass}']")).each do |cb_tag|
-      #if this tag is NOT part of the cb of interest, make it disappear
-      unless cb.bundle_elements_hash[cb_tag['cb_id'].to_i]
-        cb_tag['style'] = 'display:none'
-      end
+    #first hide absolutely everything except the essentials
+    doc.xpath("//*").each do |html_tag|
+      next if html_tag.name.in?(TagsThatCannotBeHidden)
+      html_tag['style'] = 'display:none'
     end
-    #now we gotta hide all the other tags that are evil
-    TagsThatAreNotAddableToCBs.each do |html_tag_type_to_hide|
-      doc.xpath("//#{html_tag_type_to_hide}").each do |html_tag_to_hide|
-        html_tag_to_hide['style'] = 'display:none'
+    #now unhide all concept bundle tags
+    (doc.xpath("//span[@class='#{ActiveBundleClass}']") + doc.xpath("//span[@class='#{InActiveBundleClass}']")).each do |cb_tag|
+      #if this tag IS part of the cb of interest, make it AND its parents appear
+      if cb.bundle_elements_hash[cb_tag['cb_id'].to_i]
+        make_tag_and_all_parents_appear(cb_tag)
+        make_tag_and_all_children_appear(cb_tag)
       end
     end
     doc
+  end
+
+  def make_tag_and_all_parents_appear(tag)
+#    print "\n\nmake_tag_and_all_parents_appear tag: #{tag.name}"
+    tag['style'] = ''
+    if tag.name != "document" and tag.parent.present?
+      make_tag_and_all_parents_appear(tag.parent)
+    end
+    
+  end
+
+  def make_tag_and_all_children_appear(tag)
+    tag['style'] = ''
+    tag.children.each{|ch| make_tag_and_all_children_appear(ch)}
   end
   
 end

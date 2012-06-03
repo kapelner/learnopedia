@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120601175247) do
+ActiveRecord::Schema.define(:version => 20120603065657) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(:version => 20120601175247) do
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
     t.text     "bundle_elements_hash"
+  end
+
+  create_table "concept_videos", :force => true do |t|
+    t.integer  "concept_bundle_id"
+    t.text     "description"
+    t.string   "video"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "pages", :force => true do |t|
@@ -94,11 +102,11 @@ ActiveRecord::Schema.define(:version => 20120601175247) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "versions", :force => true do |t|
-    t.string   "item_type",  :null => false
-    t.integer  "item_id",    :null => false
-    t.string   "event",      :null => false
+    t.string   "item_type",                        :null => false
+    t.integer  "item_id",                          :null => false
+    t.string   "event",                            :null => false
     t.string   "whodunnit"
-    t.text     "object"
+    t.text     "object",     :limit => 2147483647
     t.datetime "created_at"
   end
 

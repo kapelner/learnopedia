@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+div#concept_bundle_text {
+    padding: 10px;
+    border: 1px solid black;
+}
 div#concept_bundle_text > span.learnopedia_bundle_element_active {
     background-color: rgb(125,225,255);
 }

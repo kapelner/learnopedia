@@ -1,4 +1,4 @@
-<h2>CB id: <%= @cb.id %></h2>
+<h2>Concept Title: <%= best_in_place @cb, :title, :type => :input %></h2>
 
 <div id="concept_bundle_text">
   <%= render 'shared/wikipedia_css_stuff' %>
@@ -7,7 +7,11 @@
   </div>
 </div>
 
-<div>
-  Add Video
-</div>
+<h2>Add Videos for Concept</h2>
+
+<%= render 'add_video_for_concept' %>
+
+
+
+<h2>Add Questions for Concept</h2>
 
