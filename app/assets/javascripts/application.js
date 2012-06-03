@@ -5,10 +5,7 @@
 // the compiled file.
 //
 //= require application
-//= require rails
 //= require jquery
 //= require jquery.purr
-//= require json
-
 //= require best_in_place
 //= require bundleselect

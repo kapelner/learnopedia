@@ -650,3 +650,4 @@ jQuery.fn.best_in_place = function() {
         }
     });
 })(jQuery);
+

@@ -21,5 +21,6 @@ Learnopedia::Application.routes.draw do
   delete "page/delete_page"
   post "page/add_prerequisite"
   post "concept_bundle/add"
+  put "concept_bundle/edit_title"
   get "concept_bundle/index"
 end

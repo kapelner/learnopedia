@@ -1,6 +1,9 @@
 class ConceptBundleController < ApplicationController
   include ParseAndRewriteTools
 
+  respond_to :html, :json
+
+  before_filter :authenticate_user!
   
   def add
     #dejsonify the cb_ids
@@ -17,7 +20,9 @@ class ConceptBundleController < ApplicationController
   end
 
   def edit_title
-    
+    @cb = ConceptBundle.find(params[:id])
+    @cb.update_attributes(params[:concept_bundle][:title])
+    render :nothing => true
   end
 
   def index

@@ -1,4 +1,5 @@
-<h2>Concept Title: <%= best_in_place @cb, :title, :type => :input, :path => {:action => :edit_title} %></h2>
+Concept Title (click to edit)
+<h2><%= best_in_place @cb, :title, :type => :input, :path => {:action => :edit_title} %></h2>
 
 <div id="concept_bundle_text">
   <%= render 'shared/wikipedia_css_stuff' %>
@@ -14,4 +15,13 @@
 
 
 <h2>Add Questions for Concept</h2>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    /* Activating Best In Place */
+    jQuery(".best_in_place").best_in_place();
+  });
+</script>
 
