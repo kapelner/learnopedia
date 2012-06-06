@@ -66,12 +66,25 @@ function setup_concept_bundle_hovers_contributor(){
     for (var i = 0; i < all_active_cb_spans.length; i++){
         var cb_tag = all_active_cb_spans[i];
         var active_num = $(cb_tag).attr('cb_active_tag_num');
+        //if they click on a concept bundle, it takes them to the page
         $(cb_tag).bind('click', function(){
-            $("#concept_bundle_link_" + active_num).trigger("click");
+            window.location.href = $("#concept_bundle_link_" + active_num).attr('href');
         });
+        //shows them information about the concept bundle
+        if (cb_info[active_num]){
+            $(cb_tag).mouseover(function(){
+                $.cursorMessage('&nbsp;&nbsp;&nbsp;' + cb_info[active_num], {hideTimeout:0});
+                setTimeout(function(){$.hideCursorMessage();}, 3000);
+            });
+        }
     }
 }
 
 function setup_concept_bundle_hovers_student(){
     
+}
+
+function scroll_to_concept_bundle(ord_num){
+    var concept_bundle_spans = jQuery(".learnopedia_bundle_element_active_" + ord_num).toArray();
+    $('html, body').animate({scrollTop: $(concept_bundle_spans[0]).offset().top}, 1000);
 }

@@ -1,23 +1,10 @@
 <%= link_to "Student View", {:action => "student_view", :id => @page.id} %>
 
 <%= render 'prerequisites', :contributor => true %>
-
-<table width="100%" id="contributor_table">
-  <tr>
-    <td width="70%">
-      <div style="height: 1000px; overflow: auto;">
-        <div class="wikipedia_text">
-          <%= raw(@page.wikihtml_links_rewritten_concept_bundles_added_their_text_highlighted(:contributor => true)) %>
-        </div>
-      </div>
-    </td>
-    <td width="30%" valign="top">
-      <div style="padding: 10px;">
-        <%= render 'concept_bundle_controls' %>
-      </div>
-    </td>
-  </tr>
-</table>
+<%= render 'concept_bundle_controls' %>
+<div class="wikipedia_text" id="contributor_view_wiki_text">
+  <%= raw(@page.wikihtml_links_rewritten_concept_bundles_added_their_text_highlighted(:contributor => true)) %>
+</div>
 <script type="text/javascript">
   var all_inactive_cb_spans = jQuery(".learnopedia_bundle_element_inactive").toArray();
   for (var i = 0; i < all_inactive_cb_spans.length; i++){
@@ -29,4 +16,10 @@
     setup_spans_to_be_added_to_cbs();
     setup_concept_bundle_hovers_contributor();
   });
+
+  //now get all the concept bundle information
+  var cb_info = {};
+  <% @page.concept_bundles.each_with_index do |cb, i| %>
+    cb_info[<%= i + 1 %>] = "<%= cb.summary_stats %>";
+  <% end %>
 </script>
