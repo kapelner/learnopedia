@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#contributor_table span.learnopedia_bundle_element_active {
+div#contributor_view_wiki_text span.learnopedia_bundle_element_active {
     cursor: pointer;
 }
 
@@ -138,7 +138,7 @@ span.learnopedia_bundle_element_selected {
     background-color: rgb(225, 225, 255);
 }
 
-table#contributor_table {
+div#contributor_view_wiki_text {
     border: 1px solid black;
     padding: 5px;
 }

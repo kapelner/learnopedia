@@ -1,14 +1,31 @@
-<h2>Concept Bundles</h2>
-<% @page.concept_bundles.each_with_index do |cb, i| %>
-  <%= link_to "#{i + 1}. #{cb.title}", 
-    {:controller => :concept_bundle, :action => :index, :id => cb.id},
-    {:id => "concept_bundle_link_#{i + 1}"}%><br />
-<% end %>
+<div style="text-align: left;">
+  <h2>Concept Bundles</h2>
+  
+  <table>
+    <% @page.concept_bundles.each_with_index do |cb, i| %>
+      <tr>
+        <td valign="top"><%= i + 1 %></td>
+        <td valign="top">
+          <%= link_to "#{cb.title}",
+            {:controller => :concept_bundle, :action => :index, :id => cb.id},
+            {:id => "concept_bundle_link_#{i + 1}"} %>
+        </td>
+        <td valign="top">
+          <input type="button" value="Goto" onclick="scroll_to_concept_bundle(<%= i + 1 %>);" />
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="3">
+        <%= form_for :concept_bundle,
+              :url => {:controller => :concept_bundle, :action => :add},
+              :html => {:onsubmit => "return add_cb_learnopedia();"} do |f| %>
+          <%= f.hidden_field :page_id, :value => @page.id %>
+          <%= f.hidden_field :cb_ids %>
+          <%= submit_tag " Add ", {:id => 'cb_add', :disabled => true} %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>
 
-<%= form_for :concept_bundle, 
-      :url => {:controller => :concept_bundle, :action => :add},
-      :html => {:onsubmit => "return add_cb_learnopedia();"} do |f| %>
-  <%= f.hidden_field :page_id, :value => @page.id %>
-  <%= f.hidden_field :cb_ids %>
-  <%= submit_tag " Add ", {:id => 'cb_add', :disabled => true} %>
-<% end %>

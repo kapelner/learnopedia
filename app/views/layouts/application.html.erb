@@ -15,10 +15,13 @@
     </div>
     <%= render "shared/bottom_links" %>
   </center>
-  <% if flash.any? %>
-    <script type="text/javascript">
+  <script type="text/javascript">
+    $(document).ready(function(){
+      jQuery(".best_in_place").best_in_place(); //activate best in place
+    });
+    <% if flash.any? %>
       showFlash("<%= flash.now[:error] %>");
-    </script>
-  <% end %>
+    <% end %>
+  </script>
 </body>
 </html>
