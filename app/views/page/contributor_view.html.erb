@@ -18,10 +18,5 @@
     setup_spans_to_be_added_to_cbs();
     setup_concept_bundle_hovers_contributor();
   });
-
-  //now get all the concept bundle information
-  var cb_info = {};
-  <% @page.concept_bundles.each_with_index do |cb, i| %>
-    cb_info[<%= i + 1 %>] = "<%= cb.summary_stats %>";
-  <% end %>
 </script>
+<%= render 'load_cb_stats' %>

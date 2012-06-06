@@ -1,0 +1,6 @@
+<script type="text/javascript">
+  var cb_info = {};
+  <% @page.concept_bundles.each_with_index do |cb, i| %>
+    cb_info[<%= i + 1 %>] = "<%= cb.summary_stats %>";
+  <% end %>
+</script>
