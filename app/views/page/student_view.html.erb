@@ -2,8 +2,14 @@
 
 <div style="text-align:left;">
   <%= render 'prerequisites', :contributor => false %>
-  <%= render 'shared/wikipedia_css_stuff' %>
   <div class="wikipedia_text">
     <%= raw(@page.wikihtml_links_rewritten_concept_bundles_added_their_text_highlighted) %>
   </div>
 </div>
+<script type="text/javascript">
+  var all_active_cb_spans = jQuery(".learnopedia_bundle_element_active").toArray();
+
+  $(window).bind('load', function(){
+    setup_concept_bundle_hovers_student();
+  });
+</script>

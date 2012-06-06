@@ -1,6 +1,8 @@
 <h2>Concept Bundles</h2>
 <% @page.concept_bundles.each_with_index do |cb, i| %>
-  <%= link_to "#{i + 1}. #{cb.title}", :controller => :concept_bundle, :action => :index, :id => cb.id %><br />
+  <%= link_to "#{i + 1}. #{cb.title}", 
+    {:controller => :concept_bundle, :action => :index, :id => cb.id},
+    {:id => "concept_bundle_link_#{i + 1}"}%><br />
 <% end %>
 
 <%= form_for :concept_bundle, 

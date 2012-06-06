@@ -8,4 +8,4 @@
 //= require jquery
 //= require jquery.purr
 //= require best_in_place
-//= require bundleselect
+//= require bundle_scripts

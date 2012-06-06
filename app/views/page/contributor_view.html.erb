@@ -6,7 +6,6 @@
   <tr>
     <td width="70%">
       <div style="height: 1000px; overflow: auto;">
-        <%= render 'shared/wikipedia_css_stuff' %>
         <div class="wikipedia_text">
           <%= raw(@page.wikihtml_links_rewritten_concept_bundles_added_their_text_highlighted(:contributor => true)) %>
         </div>
@@ -20,14 +19,14 @@
   </tr>
 </table>
 <script type="text/javascript">
-  var all_cb_spans = jQuery(".learnopedia_bundle_element_inactive").toArray();
-  for (var i = 0; i < all_cb_spans.length; i++){
-    all_cb_spans[i].ordinal_cb_id = i;
+  var all_inactive_cb_spans = jQuery(".learnopedia_bundle_element_inactive").toArray();
+  for (var i = 0; i < all_inactive_cb_spans.length; i++){
+    all_inactive_cb_spans[i].ordinal_cb_id = i;
   }
+  var all_active_cb_spans = jQuery(".learnopedia_bundle_element_active").toArray();
 
   $(window).bind('load', function(){
-  for (var i = 0; i < all_cb_spans.length; i++){
-    $(all_cb_spans[i]).bind('click', clicked_on_cb_span(all_cb_spans[i]));
-  }
+    setup_spans_to_be_added_to_cbs();
+    setup_concept_bundle_hovers_contributor();
   });
 </script>

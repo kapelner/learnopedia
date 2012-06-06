@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/views/concept_bundle/index.html.erb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/views/concept_bundle/_add_video_for_concept.html.erb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/controllers/concept_bundle_controller.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/config/routes.rb</file>
+        <file>file:/C:/Users/kapelner/Documents/NetBeansProjects/learnopedia/app/assets/javascripts/application.js</file>
+    </open-files>
 </project-private>

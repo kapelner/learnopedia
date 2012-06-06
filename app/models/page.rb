@@ -12,7 +12,7 @@ class Page < ActiveRecord::Base
     doc = Nokogiri::HTML(open(url))
     Page.create({
       :url => url,
-      :html => Page.parse_content_from_wikipedia_article(doc),
+#      :html => Page.parse_content_from_wikipedia_article(doc),
       :title => Page.parse_title_from_wikipedia_article(doc),
       :wiki_name => url.split("/").last
     })

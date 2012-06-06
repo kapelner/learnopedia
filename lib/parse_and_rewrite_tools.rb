@@ -7,7 +7,6 @@ module ParseAndRewriteTools
     #titles_to_id_hash = Page.all.inject({}){|hash, p| hash[p.title] = p.id; hash}
     pages = Page.all
     titles_to_id = Hash[pages.map{|p| p.wiki_name}.zip(pages.map{|p| p.id})]
-    #titles_to_id.contains?("QWuadratasdfmasdpf")
 
     doc = Nokogiri::HTML(page.html)
     
@@ -105,10 +104,18 @@ module ParseAndRewriteTools
   def create_cb_tag_node_from_text(page, text, doc)
     cb_tag = Nokogiri::XML::Node.new('span', doc)
     #is it part of a context bundle?? TO-DO
-    #    self.concept_bundles.each{|cb| assign_text_blocks_to_cb(cb)}
+    
     cb_tag['class'] = "#{InActiveBundleClass}"
     cb_tag['cb_id'] = "#{@num_tags_thus_far}"
     cb_tag.inner_html = text
+
+    #if it's part of a concept bundle already, we need to mark it so and give it an ordinal number
+    page.concept_bundles.each_with_index do |cb, i|
+      if cb.bundle_elements_hash[@num_tags_thus_far]
+        cb_tag['class'] = "#{ActiveBundleClass} #{ActiveBundleClass}_#{i + 1}"
+        cb_tag['cb_active_tag_num'] = (i + 1).to_s
+      end
+    end
 
 #    puts "TAG ##{@num_tags_thus_far} cb_tag class: #{cb_tag.class} text: #{text}"
     @num_tags_thus_far += 1
@@ -123,7 +130,9 @@ module ParseAndRewriteTools
       html_tag['style'] = 'display:none'
     end
     #now unhide all concept bundle tags
-    (doc.xpath("//span[@class='#{ActiveBundleClass}']") + doc.xpath("//span[@class='#{InActiveBundleClass}']")).each do |cb_tag|
+    (doc.xpath("//span[contains(@class, '#{ActiveBundleClass}')]") + doc.xpath("//span[@class='#{InActiveBundleClass}']")).each do |cb_tag|
+      #kill the active tag that makes it a color first
+      cb_tag['class'] = ActiveBundleClass
       #if this tag IS part of the cb of interest, make it AND its parents appear
       if cb.bundle_elements_hash[cb_tag['cb_id'].to_i]
         make_tag_and_all_parents_appear(cb_tag)

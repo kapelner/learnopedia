@@ -5,7 +5,8 @@
 div#concept_bundle_text {
     padding: 10px;
     border: 1px solid black;
+    background-color: rgb(220,220,220);
 }
+
 div#concept_bundle_text > span.learnopedia_bundle_element_active {
-    background-color: rgb(125,225,255);
 }

@@ -1,8 +1,7 @@
 Concept Title (click to edit)
-<h2><%= best_in_place @cb, :title, :type => :input, :path => {:action => :edit_title, :id => @cb.id} %></h2>
+<h2><%= best_in_place @cb, :title, :type => :input, :path => {:action => :edit_title, :id => @cb.id}, :style => {:width => "400px"} %></h2>
 
 <div id="concept_bundle_text">
-  <%= render 'shared/wikipedia_css_stuff' %>
   <div class="wikipedia_text">
     <%= raw(@html_with_only_cb_showing) %>
   </div>
@@ -16,7 +15,12 @@ Concept Title (click to edit)
 
 <h2>Add Questions for Concept</h2>
 
+<%= render 'add_questions_for_concept' %>
 
+
+<br />
+<br />
+<%= link_to %Q|Return to the main page "#{@cb.page.title}"|, :controller => :page, :action => :contributor_view, :id => @cb.page.id %>
 
 <script type="text/javascript">
   $(document).ready(function() {
