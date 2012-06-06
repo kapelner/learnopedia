@@ -6,6 +6,9 @@
 //
 //= require application
 //= require jquery
+//= require jquery_ujs
 //= require jquery.purr
 //= require best_in_place
 //= require bundleselect
+//= require flashshow
+//= require jquery-ui-1.8.21.custom
