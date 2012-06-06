@@ -1,5 +1,9 @@
 class ConceptVideoController < ApplicationController
   def add
-    redirect_to :action => :index, :id => params[:concept_bundle][:page_id]
+    ConceptVideo.create({
+      :video => params[:concept_video][:video],
+      :concept_bundle_id => params[:concept_video][:cb_id]
+    })
+    redirect_to :back
   end
 end

@@ -2,6 +2,7 @@
   :url => {:controller => :concept_video, :action => :add},
   :html => {:multipart => true} do |f| %>
   <%= f.hidden_field :avatar_cache %>
+  <%= f.hidden_field :cb_id, :value => @cb.id %>
   Video File: <%= f.file_field :video %><br />
   Description: <%= f.text_field :description %><br />
   <%= f.submit " Upload " %>
