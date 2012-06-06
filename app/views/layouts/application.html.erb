@@ -15,5 +15,10 @@
     </div>
     <%= render "shared/bottom_links" %>
   </center>
+  <% if flash.any? %>
+    <script type="text/javascript">
+      showFlash("<%= flash.now[:error] %>");
+    </script>
+  <% end %>
 </body>
 </html>
