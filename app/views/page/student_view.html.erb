@@ -3,6 +3,7 @@
 <div style="text-align:left;">
   <%= render 'prerequisites', :contributor => false %>
   <div class="wikipedia_text">
+    <h2><%= @page.title %> </h2>
     <%= raw(@page.wikihtml_links_rewritten_concept_bundles_added_their_text_highlighted) %>
   </div>
 </div>

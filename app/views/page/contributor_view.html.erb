@@ -7,6 +7,7 @@
     <td width="70%">
       <div style="height: 1000px; overflow: auto;">
         <div class="wikipedia_text">
+          <h2><%= @page.title %> </h2>
           <%= raw(@page.wikihtml_links_rewritten_concept_bundles_added_their_text_highlighted(:contributor => true)) %>
         </div>
       </div>

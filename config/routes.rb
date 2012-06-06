@@ -23,4 +23,5 @@ Learnopedia::Application.routes.draw do
   post "concept_bundle/add"
   put "concept_bundle/edit_title"
   get "concept_bundle/index"
+  post "concept_video/add"
 end
