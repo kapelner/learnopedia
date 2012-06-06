@@ -63,14 +63,14 @@ function setup_spans_to_be_added_to_cbs(){
 }
 
 function setup_concept_bundle_hovers_contributor(){
-    setup_concept_bundle_hovers(function(){
+    setup_concept_bundle_hovers(function(active_num){
         window.location.href = $("#concept_bundle_link_" + active_num).attr('href');
     });
 
 }
 
 function setup_concept_bundle_hovers_student(){
-    setup_concept_bundle_hovers(function(){
+    setup_concept_bundle_hovers(function(i){
         alert('show stuff now');
     });
 }
@@ -80,7 +80,7 @@ function setup_concept_bundle_hovers(on_click_function){
         var cb_tag = all_active_cb_spans[i];
         var active_num = $(cb_tag).attr('cb_active_tag_num');
         //if they click on a concept bundle, it takes them to the page
-        $(cb_tag).bind('click', on_click_function);
+        $(cb_tag).bind('click', function() {on_click_function(active_num)});
         //shows them information about the concept bundle
         if (cb_info[active_num]){
             $(cb_tag).mouseover(function(){
