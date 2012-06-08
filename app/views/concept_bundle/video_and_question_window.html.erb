@@ -1,10 +1,12 @@
-<div class="problem_and_video_window_active">
-  <% if user_signed_in? and @contributor %>
-    <div style="margin:10px;">
-      <%= link_to "edit", :action => :index, :id => @cb.id %>
+<% if @cb.questions.any? or @cb.concept_videos.any? or @contributor %>
+  <div class="problem_and_video_window_active">
+    <% if user_signed_in? and @contributor %>
+      <div style="margin:10px;">
+        <%= link_to "edit", :action => :index, :id => @cb.id %>
+      </div>
+    <% end %>
+    <div style="text-align:left;">
+      <%= render 'questions_for_concept_view' %>
     </div>
-  <% end %>
-  <div style="text-align:left;">
-    <%= render 'questions_for_concept_view' %>
   </div>
-</div>
+<% end %>

@@ -15,4 +15,6 @@ class Question < ActiveRecord::Base
   }
   validates :question_text, :presence => true
   validates :difficulty_level, :inclusion => {:in => DifficultyLevels.keys}
+
+#  scope :questions_with_answers 
 end
