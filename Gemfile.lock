@@ -13,6 +13,18 @@ GIT
     mysql2 (0.3.11)
 
 GIT
+  remote: git://github.com/kylejginavan/youtube_it.git
+  revision: a74f63eb7af2a626310928890072475c2a2a1d88
+  specs:
+    youtube_it (2.1.5)
+      builder
+      faraday (~> 0.8)
+      nokogiri (~> 1.5.2)
+      oauth (~> 0.4.4)
+      oauth2 (~> 0.6)
+      simple_oauth (~> 0.1.5)
+
+GIT
   remote: git://github.com/rails/exception_notification.git
   revision: 192a49a02d63d28b23ed41cebadfedd490929cf1
   specs:
@@ -109,10 +121,13 @@ GEM
     erubis (2.7.0)
     execjs (1.3.2)
       multi_json (~> 1.0)
+    faraday (0.8.1)
+      multipart-post (~> 1.1)
     haml (3.1.5)
     hike (1.2.1)
     hirb (0.6.2)
     hpricot (0.8.6)
+    httpauth (0.1)
     i18n (0.6.0)
     journey (1.0.3)
     jquery-rails (2.0.2)
@@ -132,10 +147,16 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.18)
     multi_json (1.3.5)
+    multipart-post (1.1.5)
     mysql (2.8.1)
     mysql (2.8.1-x86-mingw32)
-    nokogiri (1.5.0)
-    nokogiri (1.5.0-x86-mingw32)
+    nokogiri (1.5.2-x86-mingw32)
+    oauth (0.4.6)
+    oauth2 (0.7.1)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      multi_json (~> 1.0)
+      rack (~> 1.4)
     open4 (1.3.0)
     orm_adapter (0.0.7)
     polyglot (0.3.3)
@@ -178,6 +199,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    simple_oauth (0.1.8)
     sprockets (2.1.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -225,7 +247,7 @@ DEPENDENCIES
   hirb
   mysql
   mysql2!
-  nokogiri (= 1.5.0)
+  nokogiri (= 1.5.2)
   paper_trail!
   rails (= 3.2)
   rails-dev-boost!
@@ -242,3 +264,4 @@ DEPENDENCIES
   win32-open3-19
   win32console
   wirble
+  youtube_it!
