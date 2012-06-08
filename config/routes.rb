@@ -1,11 +1,5 @@
 Learnopedia::Application.routes.draw do
 
-  
-
-  get "question/add"
-
-  get "concept_video/add"
-
   devise_for :users
 
   mount RailsAdmin::Engine => '/dbadmin', :as => 'rails_admin'
@@ -25,6 +19,7 @@ Learnopedia::Application.routes.draw do
   post "concept_bundle/add"
   put "concept_bundle/edit_title"
   get "concept_bundle/index"
+  get "concept_bundle/video_and_question_window"
   post "concept_video/add"
   post "question/add"
   post "question/edit"

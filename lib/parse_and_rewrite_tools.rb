@@ -122,22 +122,19 @@ module ParseAndRewriteTools
     cb_tag
   end
 
-  ProblemAndVideWindowClass = "problem_and_video_window"
+  ProblemAndVideoWindowClass = "problem_and_video_window"
   def add_cb_window_to_each_cb_html_block(page, doc, options)
     #first find all concept bundle tags
     
     page.concept_bundles.each_with_index do |cb, i|
       #first create the div tag itself
-      pvw_tag = Nokogiri::XML::Node.new('div', doc)
-      pvw_tag['class'] = "#{ProblemAndVideWindowClass}"
-      pvw_tag['id'] = "#{ProblemAndVideWindowClass}_#{i + 1}"
-      pvw_tag['real_cb_id'] = cb.id.to_s
-      pvw_tag['style'] = "display:none;"
-      pvw_tag.inner_html = %Q|<img alt="spinner" height="25" width="25" src="/assets/spinner.gif" />|
+      pvw_wrap_tag = Nokogiri::XML::Node.new('span', doc)
+      pvw_wrap_tag['id'] = "#{ProblemAndVideoWindowClass}_#{i + 1}"
+      pvw_wrap_tag['real_cb_id'] = cb.id.to_s
       #then get the tags
       all_cb_tags = doc.xpath("//span[contains(@class, '#{ActiveBundleClass}_#{i + 1}')]")
       #now add the div at the end of the last span
-      all_cb_tags.last.add_next_sibling(pvw_tag)
+      all_cb_tags.last.add_next_sibling(pvw_wrap_tag)
     end
   end
 

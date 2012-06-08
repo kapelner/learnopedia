@@ -1,1 +1,8 @@
-<%= @cb.summary_stats %>
+<div class="problem_and_video_window_active">
+  <% if user_signed_in? %>
+    <div style="margin:10px;">
+      <%= button_to "edit", {:action => :index, :id => @cb.id}, {:method => :get} %>
+    </div>
+  <% end %>
+  <%= @cb.summary_stats %>
+</div>

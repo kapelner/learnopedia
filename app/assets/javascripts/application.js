@@ -13,3 +13,5 @@
 //= require flashshow
 //= require jquery-ui-1.8.21.custom
 //= require jquery.cursorMessage
+
+var spinner = '<img alt="spinner" height="25" width="25" src="/assets/spinner.gif" />';
