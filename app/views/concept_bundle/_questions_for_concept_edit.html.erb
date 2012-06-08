@@ -3,12 +3,12 @@
   <% @cb.questions.each_with_index do |q, i| %>
     <tr>
       <td valign="top">
-        <div class="question_num_difficulty difficulty_level_<%= q.difficulty_level %>">
+        <div class="question_num_difficulty_edit difficulty_level_<%= q.difficulty_level %>">
           <%= i + 1 %>
         </div>
       </td>
       <td>
-        <div class="question_text_difficulty difficulty_level_<%= q.difficulty_level %>">
+        <div class="question_text_difficulty_edit difficulty_level_<%= q.difficulty_level %>">
           <%= q.question_text %>
         </div>
         <% if q.answers.empty? %>
@@ -17,8 +17,10 @@
           </div>
         <% end %>
         <%= button_to "Add Answer" %>
+      </td>
+      <td valign="top">
         <% if current_user.id == q.contributor_id %>
-          <%= button_to "Delete", :controller => :action => :delete, :id => q.id %>
+          <%= button_to "x", :controller => :question, :action => :delete, :id => q.id %>
         <% end %>
       </td>
     </tr>
