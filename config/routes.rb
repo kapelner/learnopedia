@@ -2,6 +2,8 @@ Learnopedia::Application.routes.draw do
 
   
 
+  get "question/add"
+
   get "concept_video/add"
 
   devise_for :users
@@ -24,4 +26,6 @@ Learnopedia::Application.routes.draw do
   put "concept_bundle/edit_title"
   get "concept_bundle/index"
   post "concept_video/add"
+  post "question/add"
+  post "question/edit"
 end

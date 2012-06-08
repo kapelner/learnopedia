@@ -63,24 +63,29 @@ function setup_spans_to_be_added_to_cbs(){
 }
 
 function setup_concept_bundle_hovers_contributor(){
-    setup_concept_bundle_hovers(function(active_num){
-        window.location.href = $("#concept_bundle_link_" + active_num).attr('href');
-    });
+    setup_concept_bundle_hovers();
 
 }
 
 function setup_concept_bundle_hovers_student(){
-    setup_concept_bundle_hovers(function(active_num){
-        alert('show stuff now');
-    });
+    setup_concept_bundle_hovers();
 }
 
-function setup_concept_bundle_hovers(on_click_function){
+function setup_concept_bundle_hovers(){
     for (var i = 0; i < all_active_cb_spans.length; i++){
         var cb_tag = all_active_cb_spans[i];
         var active_num = $(cb_tag).attr('cb_active_tag_num');
-        //if they click on a concept bundle, it takes them to the page
-        $(cb_tag).bind('click', function(){on_click_function(active_num)});
+        //if they click on a concept bundle, it springs open the window
+        var video_and_question_window = $('#problem_and_video_window_' + active_num);
+        video_and_question_window.show();
+        $(cb_tag).bind('click', function(){
+            alert('hey');
+//            $.ajax({
+//              url: "/video_and_question_window/" +
+//            }).done(function() {
+//              $(this).addClass("done");
+//            });
+        });
         //shows them information about the concept bundle
         if (cb_info[active_num]){
             $(cb_tag).mouseover(function(){

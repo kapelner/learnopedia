@@ -23,8 +23,8 @@ class Page < ActiveRecord::Base
   end
 
   def wikihtml_links_rewritten_concept_bundles_added_their_text_highlighted(options = {})
-    html_with_links_rewritten = rewrite_links_to_wikipedia_or_learnopedia(self, options[:contributor])
-    add_bundle_element_tags(self, html_with_links_rewritten).to_s
+    html_with_links_rewritten = rewrite_links_to_wikipedia_or_learnopedia(self, options)
+    add_bundle_element_tags(self, html_with_links_rewritten, options).to_s
   end
 
   private

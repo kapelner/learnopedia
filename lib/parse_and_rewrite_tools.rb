@@ -3,7 +3,7 @@ module ParseAndRewriteTools
   #Things that should be deleted from all wikipedia pages:
   #1) The "[edit]" links
 
-  def rewrite_links_to_wikipedia_or_learnopedia(page, is_contributor)
+  def rewrite_links_to_wikipedia_or_learnopedia(page, options)
     #titles_to_id_hash = Page.all.inject({}){|hash, p| hash[p.title] = p.id; hash}
     pages = Page.all
     titles_to_id = Hash[pages.map{|p| p.wiki_name}.zip(pages.map{|p| p.id})]
@@ -14,12 +14,12 @@ module ParseAndRewriteTools
     doc.xpath("//span[@class='editsection']").each {|edit| edit.remove}
 
     #Point links to learnopedia if the articles are in our database
-    point_wiki_links_to_the_right_place(doc, titles_to_id, is_contributor)
+    point_wiki_links_to_the_right_place(doc, titles_to_id, options)
 
     doc
   end
 
-  def point_wiki_links_to_the_right_place(doc, known_title_id_hash, is_contributor)
+  def point_wiki_links_to_the_right_place(doc, known_title_id_hash, options)
     wiki_link_start = "http://en.wikipedia.org"
     linkstart = "page"
     student_link = "student_view"
@@ -31,7 +31,7 @@ module ParseAndRewriteTools
         if link_value.start_with?("/wiki")
           wiki_name = link_value.split("/").last
           if known_title_id_hash[wiki_name]
-            link_value = %Q{/#{linkstart}/#{is_contributor ? contributor_link : student_link}?id=#{known_title_id_hash[wiki_name]}}
+            link_value = %Q{/#{linkstart}/#{options[:contributor] ? contributor_link : student_link}?id=#{known_title_id_hash[wiki_name]}}
           else
             link_value = wiki_link_start + link_value
           end
@@ -42,14 +42,16 @@ module ParseAndRewriteTools
   end
 
   attr_accessor :num_tags_thus_far
-  def add_bundle_element_tags(page, doc_with_rewritten_links)
+  def add_bundle_element_tags(page, doc_with_rewritten_links, options)
     #first get the html and get just the relevant part of the body
     root_where_content_first_appears = doc_with_rewritten_links.xpath("//div[@id='mw-content-text']").first
     #set the counter
     @num_tags_thus_far = 0
 
     #now start the recursion process
-    tag_all_words_with_cb_tag(page, root_where_content_first_appears, doc_with_rewritten_links)
+    tag_all_words_with_cb_tag(page, root_where_content_first_appears, doc_with_rewritten_links, options)
+    add_cb_window_to_each_cb_html_block(page, doc_with_rewritten_links, options)
+
     #since we modified the nokogiri doc, all we have to do is send back the new one
     doc_with_rewritten_links
   end
@@ -73,38 +75,36 @@ module ParseAndRewriteTools
 
   
 
-  def tag_all_words_with_cb_tag(page, node, doc)
+  def tag_all_words_with_cb_tag(page, node, doc, options)
     if node_is_bundleable?(node)
       #iterate over children and make a node set for each child
       new_children_as_node_array = node.children.map do |ch|
-        create_cb_tags_for_bundleable_node(page, ch, doc)
+        create_cb_tags_for_bundleable_node(page, ch, doc, options)
       end.flatten
       #now set this nodeset equal to the bundleable node's children
       node.children = Nokogiri::XML::NodeSet.new(doc, new_children_as_node_array)
     elsif !node.name.in?(TagsThatAreNotAddableToCBs)
       #just recurse to the point where the node is bundleable...
       node.children.each do |ch|
-        tag_all_words_with_cb_tag(page, ch, doc)
+        tag_all_words_with_cb_tag(page, ch, doc, options)
       end
     end
   end
 
-  def create_cb_tags_for_bundleable_node(page, node, doc)
+  def create_cb_tags_for_bundleable_node(page, node, doc, options)
     if node.text?
-      text_cb_tags = node.text.split(/\s/).map{|text_bundle| create_cb_tag_node_from_text(page, text_bundle, doc)}
+      text_cb_tags = node.text.split(/\s/).map{|text_bundle| create_cb_tag_node_from_text(page, text_bundle, doc, options)}
       text_cb_tags.map{|node| [node, Nokogiri::XML::Text.new("\n", doc)]}.flatten
     else      
-      create_cb_tag_node_from_text(page, node.to_s, doc)
+      create_cb_tag_node_from_text(page, node.to_s, doc, options)
     end
   end
 
   ActiveBundleClass = "learnopedia_bundle_element_active"
   InActiveBundleClass = "learnopedia_bundle_element_inactive"
   
-  def create_cb_tag_node_from_text(page, text, doc)
-    cb_tag = Nokogiri::XML::Node.new('span', doc)
-    #is it part of a context bundle?? TO-DO
-    
+  def create_cb_tag_node_from_text(page, text, doc, options)
+    cb_tag = Nokogiri::XML::Node.new('span', doc)    
     cb_tag['class'] = "#{InActiveBundleClass}"
     cb_tag['cb_id'] = "#{@num_tags_thus_far}"
     cb_tag.inner_html = text
@@ -120,6 +120,25 @@ module ParseAndRewriteTools
 #    puts "TAG ##{@num_tags_thus_far} cb_tag class: #{cb_tag.class} text: #{text}"
     @num_tags_thus_far += 1
     cb_tag
+  end
+
+  ProblemAndVideWindowClass = "problem_and_video_window"
+  def add_cb_window_to_each_cb_html_block(page, doc, options)
+    #first find all concept bundle tags
+    
+    page.concept_bundles.each_with_index do |cb, i|
+      #first create the div tag itself
+      pvw_tag = Nokogiri::XML::Node.new('div', doc)
+      pvw_tag['class'] = "#{ProblemAndVideWindowClass}"
+      pvw_tag['id'] = "#{ProblemAndVideWindowClass}_#{i + 1}"
+      pvw_tag['real_cb_id'] = cb.id.to_s
+      pvw_tag['style'] = "display:none;"
+      pvw_tag.inner_html = %Q|<img alt="spinner" height="25" width="25" src="/assets/spinner.gif" />|
+      #then get the tags
+      all_cb_tags = doc.xpath("//span[contains(@class, '#{ActiveBundleClass}_#{i + 1}')]")
+      #now add the div at the end of the last span
+      all_cb_tags.last.add_next_sibling(pvw_tag)
+    end
   end
 
   TagsThatCannotBeHidden = %w(html body)
@@ -143,7 +162,6 @@ module ParseAndRewriteTools
   end
 
   def make_tag_and_all_parents_appear(tag)
-#    print "\n\nmake_tag_and_all_parents_appear tag: #{tag.name}"
     tag['style'] = ''
     if tag.name != "document" and tag.parent.present?
       make_tag_and_all_parents_appear(tag.parent)

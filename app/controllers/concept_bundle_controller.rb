@@ -1,7 +1,7 @@
 class ConceptBundleController < ApplicationController
   include ParseAndRewriteTools
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :video_and_question_window
   
   def add
     #dejsonify the cb_ids
@@ -26,8 +26,13 @@ class ConceptBundleController < ApplicationController
   def index
     @cb = ConceptBundle.find(params[:id], :include => :page)
     #now we need to get the html correct
-    html_with_links_rewritten = rewrite_links_to_wikipedia_or_learnopedia(@cb.page, true)
+    html_with_links_rewritten = rewrite_links_to_wikipedia_or_learnopedia(@cb.page, :contributor => true)
     html_with_bundle_spans = add_bundle_element_tags(@cb.page, html_with_links_rewritten)
     @html_with_only_cb_showing = hide_page_except_for_cb(@cb, html_with_bundle_spans)
+  end
+
+  def video_and_question_window
+    @cb = ConceptBundle.find(params[:id], :include => [{:questions => :answers}, :concept_videos])
+    render :layout => false #ajax
   end
 end
