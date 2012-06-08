@@ -1,10 +1,11 @@
+
 <%= link_to "Student View", {:action => "student_view", :id => @page.id} %>
 
 <%= render 'prerequisites', :contributor => true %>
 
 <%= render 'concept_bundle_controls' %>
 <div class="wikipedia_text" id="contributor_view_wiki_text">
-  <h2><%= @page.title %></h2>
+  <h2><%= @page.title %><span class ="timecreated">(as of <%= @page.created_at.to_time.utc.strftime("%b %d, %Y at %H:%M:%S UTC")%>)</span></h2>
   <%= raw(@page.wikihtml_links_rewritten_concept_bundles_added_their_text_highlighted(:contributor => true)) %>
 </div>
 <script type="text/javascript">
