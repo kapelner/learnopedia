@@ -18,6 +18,10 @@ class Page < ActiveRecord::Base
     })
   end
 
+  def blank?
+    self.concept_bundles.empty?
+  end
+  
   def add_prerequisite!(url)
     self.prerequisites << Prerequisite.create(:url => url, :title => Page.parse_title_from_wikipedia_article(Nokogiri::HTML(open(url))))
   end

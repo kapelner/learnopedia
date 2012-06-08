@@ -4,13 +4,15 @@ Learnopedia::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/dbadmin', :as => 'rails_admin'
 
-  root :to => 'page#index'
+  root :to => 'welcome#index'
 
   match "about" => "welcome#about"
   match "contribute" => "welcome#contribute"
+  match "coolpage" => "page#coolpage"
   
   get "welcome/about"
   get "welcome/contribute"
+  get "page/search_or_add"
   get "page/student_view"
   get "page/contributor_view"
   post "page/contributor_view"

@@ -1,6 +1,20 @@
 class PageController < ApplicationController
   before_filter :authenticate_user!, :only => [:contributor_view, :delete_page]
   
+  CoolPages = ["Kernel density estimation"]
+  def coolpage
+    redirect_to :action => :student_view, :id => (Page.find_by_title(CoolPages.sample) || Page.first).id
+  end
+
+  def search_or_add
+    @page = Page.find_by_title(params[:page][:title])
+    if @page.nil?
+      
+    else
+      redirect_to :action => :student_view, :id => @page.id
+    end
+  end
+
   def index
     if request.post?
       authorize! :create, Page

@@ -2,6 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#about_us {
+div#about_us {
     text-align: left;
+}
+
+div#logo {
+    padding: 40px;
+}
+
+div#all_pages {
+    text-align: left;
+    margin-top: 15px;
+}
+
+div#powered_by {
+    padding: 5px;
 }

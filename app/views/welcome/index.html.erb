@@ -1,0 +1,23 @@
+<div id="logo">
+  <%= image_tag "wikipedia_logo.png", :size => "200x200" %>
+</div>
+<%= form_for :page,
+  :url => {:controller => :page, :action => :search_or_add},
+  :html => {:method => :get} do |f|  %>
+  <%= f.text_field :title %><%= submit_tag " Search " %><input type="button" value=" Learn Something! " onclick="window.location.href = '/coolpage';" />
+<% end %>
+<br />
+<br />
+<% if user_signed_in? %>
+<%= link_to 'Display All Pages', 'javascript: void(0);', :onclick => "$('#all_pages').toggle();" %>
+<div id="all_pages" style="display: none;">
+  <table width="70%">
+    <%= render 'page/all_pages_for_contributor' %>
+  </table>
+</div>
+<% end %>
+<script type="text/javascript">
+  $(window).bind('load', function(){
+    $('#page_title').focus();
+  });
+</script>
