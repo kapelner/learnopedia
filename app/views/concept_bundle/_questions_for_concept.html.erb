@@ -1,7 +1,7 @@
 <%= form_for :question,
       :url => {:controller => :quesiton, :action => :add},
       :html => {:onsubmit => "return add_cb_learnopedia();"} do |f| %>
-  <%= f.hidden_field :concept_bundle_id, :value => @page.id %>
+  <%= f.hidden_field :concept_bundle_id, :value => @cb.id %>
   <%= f.hidden_field :cb_ids %>
   <%= submit_tag " Add ", {:id => 'cb_add', :disabled => true} %>
 <% end %>

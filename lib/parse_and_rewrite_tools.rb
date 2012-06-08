@@ -42,7 +42,7 @@ module ParseAndRewriteTools
   end
 
   attr_accessor :num_tags_thus_far
-  def add_bundle_element_tags(page, doc_with_rewritten_links, options)
+  def add_bundle_element_tags(page, doc_with_rewritten_links, options={})
     #first get the html and get just the relevant part of the body
     root_where_content_first_appears = doc_with_rewritten_links.xpath("//div[@id='mw-content-text']").first
     #set the counter

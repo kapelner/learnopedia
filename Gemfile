@@ -4,7 +4,7 @@ gem 'railties', '3.2.0'
 gem 'rails', '3.2'
 
 gem 'rake', '0.9.2.2'
-gem 'nokogiri', '1.5.0'
+gem 'nokogiri', '1.5.2'
 gem 'crypt19', :platform => :ruby
 gem 'rak'
 gem 'POpen4'
@@ -18,6 +18,7 @@ gem 'exception_notification', :git => "git://github.com/rails/exception_notifica
 gem 'sunspot_rails'
 gem 'sunspot_solr' #USE from CMD: bundle exec rake sunspot:solr:run
 gem 'best_in_place'
+gem 'youtube_it', :git => "git://github.com/kylejginavan/youtube_it.git"
 
 group :production do
   gem 'mysql2', :git => 'git://github.com/brianmario/mysql2.git'
