@@ -21,6 +21,6 @@ class ConceptBundle < ActiveRecord::Base
       end
     end
     stats << "No videos or questions yet." if stats.empty?
-    stats.join(' ')
+    (self.title.present? ? "#{self.title}:  " : "") + stats.join(' ')
   end
 end

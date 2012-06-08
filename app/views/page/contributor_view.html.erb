@@ -1,5 +1,11 @@
-
 <%= link_to "Student View", {:action => "student_view", :id => @page.id} %>
+
+<% if @page.no_content? %>
+  <div id="no_content_message">
+    There is no content yet on this page.
+    Start adding concepts, videos, questions, and answers to help build Learnipedia.
+  </div>
+<% end %>
 
 <%= render 'prerequisites', :contributor => true %>
 

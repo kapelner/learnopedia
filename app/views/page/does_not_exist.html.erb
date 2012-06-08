@@ -1,0 +1,10 @@
+"<%= @title %>" does not exist in Learnipedia yet.<br />
+<br />
+You can add this page by <%= link_to "becoming a contributor", new_user_registration_path %>!<br />
+<br />
+You are now being redirected to wikipedia.
+<script type="text/javascript">
+  setTimeout(function(){
+    $(location).attr('href', "<%= Page::WikipediaSearch %><%= @title %>");
+  }, 4000);
+</script>

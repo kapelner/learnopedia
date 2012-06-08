@@ -1,4 +1,6 @@
 class PageController < ApplicationController
+  include Wikipedia
+  
   before_filter :authenticate_user!, :only => [:contributor_view, :delete_page]
   
   CoolPages = ["Kernel density estimation"]
@@ -9,10 +11,30 @@ class PageController < ApplicationController
   def search_or_add
     @page = Page.find_by_title(params[:page][:title])
     if @page.nil?
-      
+      if user_signed_in?
+        #work on actually adding the page
+        doc = query_en_wikipedia(params[:page][:title])
+        if no_wikipedia_article_by_title?(doc)
+          #if not, we need to send them to a special search page
+          raise "no wikipedia article by title #{params[:page][:title]}"
+        else
+          #if it was actually a page, go ahead and add it to the db
+          page = Page.create_learnopedia_page_by_url!(doc)
+          redirect_to :action => :contributor_view, :id => page.id
+        end
+      else
+        #send them to a redirect page with a message
+        session[:title] = params[:page][:title]
+        redirect_to :action => :does_not_exist
+      end
     else
+      #if it exists, great, route them there
       redirect_to :action => :student_view, :id => @page.id
     end
+  end
+
+  def does_not_exist
+    @title = session[:title]
   end
 
   def index

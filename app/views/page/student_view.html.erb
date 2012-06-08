@@ -1,5 +1,16 @@
 <%= link_to "Contributor View", {:action => "contributor_view", :id => @page.id} if user_signed_in? %>
 
+<% if @page.no_content? %>
+  <div id="no_content_message">
+    There is no content yet on this page.
+    <% if user_signed_in? %>
+      Go to the contributor view to begin to build the learning interface for this page.
+    <% else %>
+      <%= link_to "Become a contributor", new_user_registration_path %> and help build Learnipedia.
+    <% end %>    
+  </div>
+<% end %>
+
 <div style="text-align:left;">
   <%= render 'prerequisites', :contributor => false %>
   <div class="wikipedia_text">

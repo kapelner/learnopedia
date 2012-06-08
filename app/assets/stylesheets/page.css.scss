@@ -22,6 +22,19 @@ span.timecreated {
     margin-left: 1em;
 }
 
+div#contributor_view_wiki_text {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+div#no_content_message {
+    width: 300px;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid grey;
+    background-color: rgb(255,225,225);
+}
+
 dd span.learnopedia_bundle_element_active {
     display: block;
 }
@@ -31,7 +44,7 @@ span.learnopedia_bundle_element_active_1 {
 }
 
 span.learnopedia_bundle_element_active_2 {
-    background-color: rgb(255,250,205);
+    background-color: rgb(154,255,154);
 }
 
 span.learnopedia_bundle_element_active_3 {
@@ -67,7 +80,7 @@ span.learnopedia_bundle_element_active_10 {
 }
 
 span.learnopedia_bundle_element_active_11 {
-    background-color: rgb(154,255,154);
+    background-color: rgb(255,250,205);
 }
 
 span.learnopedia_bundle_element_active_12 {
@@ -152,9 +165,4 @@ span.learnopedia_bundle_element_inactive {
 
 span.learnopedia_bundle_element_selected {
     background-color: rgb(225, 225, 255);
-}
-
-div#contributor_view_wiki_text {
-    border: 1px solid black;
-    padding: 5px;
 }

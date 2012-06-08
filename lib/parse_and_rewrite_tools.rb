@@ -3,6 +3,8 @@ module ParseAndRewriteTools
   #Things that should be deleted from all wikipedia pages:
   #1) The "[edit]" links
 
+
+
   def rewrite_links_to_wikipedia_or_learnopedia(page, options)
     #titles_to_id_hash = Page.all.inject({}){|hash, p| hash[p.title] = p.id; hash}
     pages = Page.all
