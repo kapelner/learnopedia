@@ -1,5 +1,3 @@
-
-
 var clicked_once = false;
 var clicked_twice = false;
 var beginning_span = null;
@@ -32,11 +30,10 @@ function clicked_on_cb_span(cb_span){
 
       }
       else if (clicked_twice){
-            clicked_twice = false;
-            $('#cb_add').attr('disabled', true)
-            user_cb_spans = all_inactive_cb_spans.slice(beginning_id, ending_id + 1);
-            $.each(user_cb_spans, function(i, cb_span){$(cb_span).removeClass('learnopedia_bundle_element_selected');});
-
+        clicked_twice = false;
+        $('#cb_add').attr('disabled', true)
+        user_cb_spans = all_inactive_cb_spans.slice(beginning_id, ending_id + 1);
+        $.each(user_cb_spans, function(i, cb_span){$(cb_span).removeClass('learnopedia_bundle_element_selected');});
       }
 
       //beginning the bundle assignment

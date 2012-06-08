@@ -1,0 +1,27 @@
+<tr>
+  <td valign="top">New&nbsp;</td>
+  <td>
+    <%= form_for :question, :url => {:controller => :question, :action => :add} do |f| %>
+      <%= f.hidden_field :concept_bundle_id, :value => @cb.id %>
+      <div>
+        <%= f.text_area :question_text %><br />
+        <% Question::DifficultyLevels.each do |code, text| %>
+          <%= f.radio_button :difficulty_level, code, :checked => code == Question::DifficultyLevels.keys.first %>
+          <%= label "difficulty_level_#{code}".to_sym, text, :for => "question_difficulty_level_#{code}", :class => "difficulty_level_#{code}" %>
+        <% end %>
+        <br />
+        <%= submit_tag " Add " %>
+      </div>
+    <% end %>
+  </td>
+</tr>
+<% if @cb.questions.any? %>
+  <tr>
+    <td colspan="2"><div style="height:20px;"></div></td>
+  </tr>
+<% end %>
+<script type="text/javascript">
+  $(window).bind('load', function(){
+    $('#question_question_text').focus();
+  });
+</script>

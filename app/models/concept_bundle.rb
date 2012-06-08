@@ -4,6 +4,7 @@ class ConceptBundle < ActiveRecord::Base
   has_many :questions #do not destroy these on cb destroy
   has_many :concept_videos
   belongs_to :page
+  belongs_to :contributor, :class_name => 'User'
 
   serialize :bundle_elements_hash
 

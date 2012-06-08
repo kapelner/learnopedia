@@ -1,7 +1,26 @@
-<%= form_for :question,
-      :url => {:controller => :quesiton, :action => :add},
-      :html => {:onsubmit => "return add_cb_learnopedia();"} do |f| %>
-  <%= f.hidden_field :concept_bundle_id, :value => @cb.id %>
-  <%= f.hidden_field :cb_ids %>
-  <%= submit_tag " Add ", {:id => 'cb_add', :disabled => true} %>
-<% end %>
+<table cellspacing="5">
+  <%= render 'new_question' %>
+  <% @cb.questions.each_with_index do |q, i| %>
+    <tr>
+      <td valign="top">
+        <div class="question_num_difficulty difficulty_level_<%= q.difficulty_level %>">
+          <%= i + 1 %>
+        </div>
+      </td>
+      <td>
+        <div class="question_text_difficulty difficulty_level_<%= q.difficulty_level %>">
+          <%= q.question_text %>
+        </div>
+        <% if q.answers.empty? %>
+          <div class="question_unlisted">
+            (This question is currently unlisted because it has no answers associated with it)
+          </div>
+        <% end %>
+        <%= button_to "Add Answer" %>
+        <% if current_user.id == q.contributor_id %>
+          <%= button_to "Delete", :controller => :question, :action => :delete, :id => q.id %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>  
+</table>

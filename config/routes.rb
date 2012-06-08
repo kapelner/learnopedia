@@ -23,4 +23,5 @@ Learnopedia::Application.routes.draw do
   post "concept_video/add"
   post "question/add"
   post "question/edit"
+  post "question/delete"
 end
