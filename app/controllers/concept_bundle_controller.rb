@@ -33,6 +33,7 @@ class ConceptBundleController < ApplicationController
 
   def video_and_question_window
     @cb = ConceptBundle.find(params[:id], :include => [{:questions => :answers}, :concept_videos])
+    @contributor = params[:contributor] == "true"
     render :layout => false #ajax
   end
 end

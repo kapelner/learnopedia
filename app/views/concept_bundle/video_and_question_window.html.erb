@@ -1,7 +1,7 @@
 <div class="problem_and_video_window_active">
-  <% if user_signed_in? %>
+  <% if user_signed_in? and @contributor %>
     <div style="margin:10px;">
-      <%= button_to "edit", {:action => :index, :id => @cb.id}, {:method => :get} %>
+      <%= link_to "edit", :action => :index, :id => @cb.id %>
     </div>
   <% end %>
   <%= @cb.summary_stats %>
