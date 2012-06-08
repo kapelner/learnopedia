@@ -4,5 +4,7 @@
       <%= link_to "edit", :action => :index, :id => @cb.id %>
     </div>
   <% end %>
-  <%= @cb.summary_stats %>
+  <div style="text-align:left;">
+    <%= render 'questions_for_concept_view' %>
+  </div>
 </div>

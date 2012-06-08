@@ -92,8 +92,8 @@ function setup_concept_bundle_hovers(contributor){
         });
         //shows them information about the concept bundle
         if (cb_info[active_num]){
-            $(cb_tag).mouseover(function(){
-                $.cursorMessage('&nbsp;&nbsp;&nbsp;' + cb_info[active_num], {hideTimeout:0});
+            $(cb_tag).bind('mouseover', {active_num : active_num}, function(event){
+                $.cursorMessage('&nbsp;&nbsp;&nbsp;' + cb_info[event.data.active_num], {hideTimeout:0});
                 setTimeout(function(){$.hideCursorMessage();}, 3000);
             });
         }

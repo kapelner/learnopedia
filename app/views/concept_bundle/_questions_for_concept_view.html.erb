@@ -1,6 +1,5 @@
 <table cellspacing="5">
-  <%= render 'new_question' %>
-  <% @cb.questions.each_with_index do |q, i| %>
+ <% @cb.questions.each_with_index do |q, i| %>
     <tr>
       <td valign="top">
         <div class="question_num_difficulty difficulty_level_<%= q.difficulty_level %>">
@@ -16,11 +15,7 @@
             (This question is currently unlisted because it has no answers associated with it)
           </div>
         <% end %>
-        <%= button_to "Add Answer" %>
-        <% if current_user.id == q.contributor_id %>
-          <%= button_to "Delete", :controller => :question, :action => :delete, :id => q.id %>
-        <% end %>
       </td>
     </tr>
-  <% end %>  
+  <% end %>
 </table>
