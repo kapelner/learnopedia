@@ -1,9 +1,11 @@
 class ConceptVideo < ActiveRecord::Base
   has_paper_trail
 
-  mount_uploader :video, VideoUploader
-
   belongs_to :concept_bundle
+
+  mount_uploader :video, VideoUploader  
+
+  validates :desciption, :presence => true
 
   searchable {text :description}
 end

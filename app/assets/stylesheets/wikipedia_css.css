@@ -1573,11 +1573,11 @@ div.wikipedia_text  hr {
 	}
 
 	/* Structural Elements */
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
+div.wikipedia_text  	h1,
+div.wikipedia_text  	h2,
+div.wikipedia_text  	h3,
+div.wikipedia_text  	h4,
+div.wikipedia_text  	h5,
 div.wikipedia_text  h6 {
 		color: black;
 		background: none;
@@ -1958,14 +1958,7 @@ div.wikipedia_text  span.subpages {
 	 */
 
 	/* Framework */
-	html,
-div.wikipedia_text  body {
-		height: 100%;
-		margin: 0;
-		padding: 0;
-		font-family: sans-serif;
-		font-size: 1em;
-	}
+
 div.wikipedia_text  body {
 		background-color: #f3f3f3;
 		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAAFElEQVR4XgXAIQ0AAACAMPoHvmYZAPgA9zBoSQ8AAAAASUVORK5CYII=);
