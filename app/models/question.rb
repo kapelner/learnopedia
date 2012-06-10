@@ -20,6 +20,10 @@ class Question < ActiveRecord::Base
   validates :question_text, :presence => true
   validates :difficulty_level, :inclusion => {:in => DifficultyLevels.keys}
 
+  SampleText = <<SAMP
+This is a sample question that uses inline math \\(a^2 + b^2 = c^2\\) as well as block math $$\\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{-\\frac{1}{2\\sigma^2} (x - \\mu)^2}$$
+SAMP
+
   def difficulty_level_text
     "[#{DifficultyLevels[self.difficulty_level]}]"
   end

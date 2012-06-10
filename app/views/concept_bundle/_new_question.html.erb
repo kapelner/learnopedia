@@ -1,7 +1,7 @@
 <%= form_for :question, :url => {:controller => :question, :action => :add} do |f| %>
   <input type="hidden" name="concept_bundle_id" value="<%= @cb.id %>" />
   <div>
-    <%= f.text_area :question_text %><br />
+    <%= f.text_area :question_text, :value => Question::SampleText %><br />
     <% Question::DifficultyLevels.each do |code, text| %>
       <%= f.radio_button :difficulty_level, code, :checked => code == Question::DifficultyLevels.keys.first %>
       <%= label "difficulty_level_#{code}".to_sym, text, :for => "question_difficulty_level_#{code}", :class => "difficulty_level_#{code}" %>
