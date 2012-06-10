@@ -4,45 +4,54 @@ var beginning_span = null;
 var user_cb_spans = [];
 var beginning_id = 0;
 var ending_id = 0;
+var add_bundle_window = null;
 
 function clicked_on_cb_span(cb_span){
     return function(){
-      //do some resets
-      $('#cb_add').attr('disabled', true)
       user_cb_spans = [];
       //completed the bundle assignment
       if (clicked_once){
-        clicked_once = false;
-        if (cb_span == beginning_span){
-          $(cb_span).removeClass('learnopedia_bundle_element_selected');
-        }
-        else {
-          //find all spans in between this cb_span and beginning_span and "select" those
-          clicked_twice = true;
-          beginning_id = Math.min(beginning_span.ordinal_cb_id, cb_span.ordinal_cb_id);
-          ending_id = Math.max(beginning_span.ordinal_cb_id, cb_span.ordinal_cb_id);
-
-          user_cb_spans = $(all_inactive_cb_spans).slice(beginning_id, ending_id + 1);
-          $.each(user_cb_spans, function(i, cb_span){$(cb_span).addClass('learnopedia_bundle_element_selected');});
-
-          $('#cb_add').attr('disabled', false)
-        }
-
+        finished_selecting_elements_for_cb(cb_span)
       }
       else if (clicked_twice){
-        clicked_twice = false;
-        $('#cb_add').attr('disabled', true)
-        user_cb_spans = all_inactive_cb_spans.slice(beginning_id, ending_id + 1);
-        $.each(user_cb_spans, function(i, cb_span){$(cb_span).removeClass('learnopedia_bundle_element_selected');});
+        canceled_concept_bundle_selection();
       }
-
-      //beginning the bundle assignment
       else {
-        clicked_once = true;
-        //highlight this span
-        beginning_span = cb_span;
-        $(cb_span).addClass('learnopedia_bundle_element_selected');
+        began_selecting_elements_for_cb(cb_span)
       }
+    }
+}
+
+function canceled_concept_bundle_selection(){
+    $('#add_bundle_window').hide();
+    clicked_twice = false;
+    user_cb_spans = all_inactive_cb_spans.slice(beginning_id, ending_id + 1);
+    $.each(user_cb_spans, function(i, cb_span){$(cb_span).removeClass('learnopedia_bundle_element_selected');});
+}
+
+function began_selecting_elements_for_cb(cb_span){
+    clicked_once = true;
+    //highlight this span
+    beginning_span = cb_span;
+    $(cb_span).addClass('learnopedia_bundle_element_selected');
+}
+
+function finished_selecting_elements_for_cb(cb_span){
+    clicked_once = false;
+    if (cb_span == beginning_span){
+      $(cb_span).removeClass('learnopedia_bundle_element_selected');
+    }
+    else {
+      //find all spans in between this cb_span and beginning_span and "select" those
+      clicked_twice = true;
+      beginning_id = Math.min(beginning_span.ordinal_cb_id, cb_span.ordinal_cb_id);
+      ending_id = Math.max(beginning_span.ordinal_cb_id, cb_span.ordinal_cb_id);
+
+      user_cb_spans = $(all_inactive_cb_spans).slice(beginning_id, ending_id + 1);
+      $.each(user_cb_spans, function(i, cb_span){$(cb_span).addClass('learnopedia_bundle_element_selected');});
+
+      user_cb_spans.last().after($('#add_bundle_window').detach());
+      $('#add_bundle_window').show();
     }
 }
 
@@ -72,29 +81,42 @@ function setup_concept_bundle_hovers(contributor){
         var cb_tag = all_active_cb_spans[i];
         var active_num = $(cb_tag).attr('cb_active_tag_num');
         //if they click on a concept bundle, it springs open the window
-        $(cb_tag).bind('click', {active_num : active_num}, function(event){
-            var video_and_question_window = $('#problem_and_video_window_' + event.data.active_num);
-            //toggle on/off
-            if (video_and_question_window.html() == ''){
-                video_and_question_window.show();
-                video_and_question_window.html(spinner);
-                $.ajax({
-                  url : "/concept_bundle/video_and_question_window/",
-                  data : {'id' : video_and_question_window.attr('real_cb_id'), 'contributor' : contributor}
-                }).done(function(rendered_html) {
-                  video_and_question_window.html(rendered_html);
-                });
-            }
-            else {
-                video_and_question_window.html('');
-                video_and_question_window.hide();
-            }
-        });
+        if (cb_no_content[active_num] && contributor){
+            $(cb_tag).bind('click', {active_num : active_num}, function(event){
+                window.location.href = "/concept_bundle/index?id=" + $(cb_tag).attr('real_cb_id');
+            });
+        }
+        else if (cb_no_content[active_num] && !contributor){
+            $(cb_tag).bind('click', {active_num : active_num}, function(event){
+                showFlash($('#student_message_cb_empty').html());
+            });
+        }
+        else {
+            $(cb_tag).bind('click', {active_num : active_num}, function(event){
+                var video_and_question_window = $('#problem_and_video_window_' + event.data.active_num);
+                //toggle on/off
+                if (video_and_question_window.html() == ''){
+                    video_and_question_window.show();
+                    video_and_question_window.html(spinner);
+                    $.ajax({
+                      url : "/concept_bundle/video_and_question_window/",
+                      data : {'id' : video_and_question_window.attr('real_cb_id'), 'contributor' : contributor}
+                    }).done(function(rendered_html) {
+                      video_and_question_window.html(rendered_html);
+                    });
+                }
+                else {
+                    video_and_question_window.html('');
+                    video_and_question_window.hide();
+                }
+            });
+        }
+
         //shows them information about the concept bundle
-        if (cb_info[active_num]){
+        if (cb_summary_message[active_num]){
             $(cb_tag).bind('mouseover', {active_num : active_num}, function(event){
-                $.cursorMessage('&nbsp;&nbsp;&nbsp;' + cb_info[event.data.active_num], {hideTimeout:0});
-                setTimeout(function(){$.hideCursorMessage();}, 3000);
+                $.cursorMessage('&nbsp;&nbsp;&nbsp;' + cb_summary_message[event.data.active_num], {hideTimeout:0});
+                setTimeout(function(){$.hideCursorMessage();}, 1000);
             });
         }
     }

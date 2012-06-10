@@ -2,7 +2,7 @@
   <h2>Concept Bundles</h2>
   
   <table>
-    <% @page.concept_bundles.each_with_index do |cb, i| %>
+    <% @page.concept_bundles_in_text_order.each_with_index do |cb, i| %>
       <tr>
         <td valign="top"><%= i + 1 %></td>
         <td valign="top">
@@ -15,17 +15,6 @@
         </td>
       </tr>
     <% end %>
-    <tr>
-      <td colspan="3">
-        <%= form_for :concept_bundle,
-              :url => {:controller => :concept_bundle, :action => :add},
-              :html => {:onsubmit => "return add_cb_learnopedia();"} do |f| %>
-          <%= f.hidden_field :page_id, :value => @page.id %>
-          <%= f.hidden_field :cb_ids %>
-          <%= submit_tag " Add ", {:id => 'cb_add', :disabled => true} %>
-        <% end %>
-      </td>
-    </tr>
   </table>
 </div>
 

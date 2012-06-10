@@ -1,8 +1,20 @@
+<table width="100%">
+  <tr>
+    <td width="10%"></td>
+    <td valign="center" align="center">
+      <h2>
+        <%= best_in_place @cb, :title, :type => :input, :path => {:action => :edit_title, :id => @cb.id}, :style => {:width => "400px"} %>
+        <span style="font-size:10px;">(click the title to edit)</span>
+      </h2>
+    </td>
+    <td valign="center" align="right" width="10%">
+      <%= button_to ' Delete ',
+        {:controller => :concept_bundle, :action => :delete, :id => @cb.id},
+        {:confirm => "Are you sure?", :method => :delete} %>
+    </td>
+  </tr>
+</table>
 
-<h2>
-  <%= best_in_place @cb, :title, :type => :input, :path => {:action => :edit_title, :id => @cb.id}, :style => {:width => "400px"} %>
-  <span style="font-size:10px;">(click the title to edit)</span>
-</h2>
 
 <div id="concept_bundle_text">
   <div class="wikipedia_text">

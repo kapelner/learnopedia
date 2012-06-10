@@ -8,6 +8,10 @@ class ConceptBundle < ActiveRecord::Base
 
   serialize :bundle_elements_hash
 
+  def no_content?
+    self.concept_videos.empty? and self.questions.empty?
+  end
+
   def summary_stats
     stats = []
     if self.concept_videos.any?

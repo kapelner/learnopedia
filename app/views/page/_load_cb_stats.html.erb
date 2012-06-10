@@ -1,6 +1,12 @@
 <script type="text/javascript">
-  var cb_info = {};
-  <% @page.concept_bundles.each_with_index do |cb, i| %>
-    cb_info[<%= i + 1 %>] = "<%= cb.summary_stats %>";
+  var cb_summary_message = {};
+  <% @page.concept_bundles_in_text_order.each_with_index do |cb, i| %>
+    cb_summary_message[<%= i + 1 %>] = "<%= cb.summary_stats %>";
   <% end %>
+
+  var cb_no_content = {};
+  <% @page.concept_bundles_in_text_order.each_with_index do |cb, i| %>
+    cb_no_content[<%= i + 1 %>] = <%= cb.no_content? %>;
+  <% end %>
+  
 </script>

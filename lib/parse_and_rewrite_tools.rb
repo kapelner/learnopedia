@@ -52,7 +52,7 @@ module ParseAndRewriteTools
 
     #now start the recursion process
     tag_all_words_with_cb_tag(page, root_where_content_first_appears, doc_with_rewritten_links, options)
-    add_cb_window_to_each_cb_html_block(page, doc_with_rewritten_links, options)
+    add_cb_window_to_each_cb_html_block(page, doc_with_rewritten_links)
 
     #since we modified the nokogiri doc, all we have to do is send back the new one
     doc_with_rewritten_links
@@ -112,10 +112,11 @@ module ParseAndRewriteTools
     cb_tag.inner_html = text
 
     #if it's part of a concept bundle already, we need to mark it so and give it an ordinal number
-    page.concept_bundles.each_with_index do |cb, i|
+    page.concept_bundles_in_text_order.each_with_index do |cb, i|
       if cb.bundle_elements_hash[@num_tags_thus_far]
         cb_tag['class'] = "#{ActiveBundleClass} #{ActiveBundleClass}_#{i + 1}"
-        cb_tag['cb_active_tag_num'] = (i + 1).to_s
+        cb_tag['cb_active_tag_num'] = (i + 1).to_s #casting??? are you kidding?
+        cb_tag['real_cb_id'] = cb.id.to_s #casting??? are you kidding?
       end
     end
 
@@ -125,10 +126,10 @@ module ParseAndRewriteTools
   end
 
   ProblemAndVideoWindowClass = "problem_and_video_window"
-  def add_cb_window_to_each_cb_html_block(page, doc, options)
+  def add_cb_window_to_each_cb_html_block(page, doc)
     #first find all concept bundle tags
     
-    page.concept_bundles.each_with_index do |cb, i|
+    page.concept_bundles_in_text_order.each_with_index do |cb, i|
       #first create the div tag itself
       pvw_wrap_tag = Nokogiri::XML::Node.new('span', doc)
       pvw_wrap_tag['id'] = "#{ProblemAndVideoWindowClass}_#{i + 1}"

@@ -10,6 +10,18 @@ div#contributor_view_wiki_text span.learnopedia_bundle_element_active {
 
 }
 
+div#add_bundle_window {
+    text-align: left;
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    width: 400px;
+    padding: 20px;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: 15px;
+}
+
 div.problem_and_video_window_active {
     border: 1px solid black;
     padding: 10px;

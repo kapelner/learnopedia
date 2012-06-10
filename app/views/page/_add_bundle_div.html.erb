@@ -1,0 +1,32 @@
+<div id="add_bundle_window" style="display:none;">
+  You are adding a concept to this page. Before you add it, please
+  try to follow our style guidelines:
+  <ul>
+    <li>
+      Bundles should try to capture <i>one</i> concept. Obviously, there is some
+      grey area here, but please try to keep in mind that real students will
+      be viewing this as one "lesson" or one "lecture"
+    </li>
+    <li>
+      To that effect, bundles should be as small as possible.
+    </li>
+  </ul>
+  <div style="text-align:center;">
+    <table cellspacing="5" width="100%">
+      <tr>
+        <td align="right">
+          <%= form_for :concept_bundle,
+                :url => {:controller => :concept_bundle, :action => :add},
+                :html => {:onsubmit => "return add_cb_learnopedia();"} do |f| %>
+            <%= f.hidden_field :page_id, :value => @page.id %>
+            <%= f.hidden_field :cb_ids %>
+            <%= submit_tag " Add ", {:id => 'cb_add'} %>
+          <% end %>
+        </td>
+        <td align="left">
+          <input type="button" value=" Cancel " onclick="javascript: canceled_concept_bundle_selection();" />
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

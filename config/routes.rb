@@ -23,6 +23,7 @@ Learnopedia::Application.routes.draw do
   put "concept_bundle/edit_title"
   get "concept_bundle/index"
   get "concept_bundle/video_and_question_window"
+  delete "concept_bundle/delete"
   post "concept_video/add"
   post "question/add"
   post "question/edit"

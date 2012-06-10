@@ -36,4 +36,10 @@ class ConceptBundleController < ApplicationController
     @contributor = params[:contributor] == "true"
     render :layout => false #ajax
   end
+
+  def delete
+    cb = ConceptBundle.find(params[:id])
+    cb.destroy
+    redirect_to :controller => :page, :action => :contributor_view, :id => cb.page.id
+  end
 end
