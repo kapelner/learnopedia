@@ -49,5 +49,6 @@
     <% else %>
       $('#question_question_text').focus();
     <% end %>
+    $('.best_in_place').bind("ajax:success", function(){window.location.reload();});
   });
 </script>

@@ -4,6 +4,8 @@ Learnopedia::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/dbadmin', :as => 'rails_admin'
 
+  mathjax 'mathjax'
+  
   root :to => 'welcome#index'
 
   match "about" => "welcome#about"

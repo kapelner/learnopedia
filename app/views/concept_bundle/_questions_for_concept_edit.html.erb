@@ -13,17 +13,17 @@
                 :display_with => :simple_format,
                 :path => {:controller => :question, :action => :edit, :id => q.id},
                 :html_attrs => {:style => "width:600px; height: 300px;"} %>
-          <% if q.answers.empty? %>
-            <div class="question_unlisted">
-              (This question is currently unlisted because it has no answers associated with it)
-            </div>
-          <% end %>
-          <span class="difficulty_level_<%= q.difficulty_level %>">
-            <%= q.difficulty_level_text %>
-          </span>
-          &nbsp;&nbsp;
-          <%= link_to "Add Answer", :controller => :answer, :action => :index, :id => q.id %>
         </div>
+        Level: <span class="difficulty_level_<%= q.difficulty_level %>">
+          <%= q.difficulty_level_text %>
+        </span>
+        &nbsp;&nbsp;
+        <%= link_to "Add Answer", :controller => :answer, :action => :index, :id => q.id %>
+        <% if q.answers.empty? %>
+          <span class="question_unlisted">
+            (This question is currently unlisted because it has no answers associated with it)
+          </span>
+        <% end %>
       </td>
       <td valign="center">
         <% if current_user.id == q.contributor_id %>

@@ -8,7 +8,7 @@ gem 'nokogiri', '1.5.2'
 gem 'crypt19', :platform => :ruby
 gem 'rak'
 gem 'POpen4'
-gem 'rails_admin', '0.0.3', :git => 'git://github.com/sferik/rails_admin.git'
+gem 'rails_admin', '0.0.3'#, :git => 'git://github.com/sferik/rails_admin.git'
 gem 'devise'
 gem 'cancan'
 gem 'carrierwave'
@@ -19,6 +19,7 @@ gem 'sunspot_rails'
 gem 'sunspot_solr' #USE from CMD: bundle exec rake sunspot:solr:run
 gem 'best_in_place'
 gem 'youtube_it', :git => "git://github.com/kylejginavan/youtube_it.git"
+gem 'mathjax-rails'
 
 group :production do
   gem 'mysql2', :git => 'git://github.com/brianmario/mysql2.git'
