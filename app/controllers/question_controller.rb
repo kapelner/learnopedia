@@ -11,4 +11,10 @@ class QuestionController < ApplicationController
     q.destroy if q.contributor_id == current_user.id
     redirect_to :back
   end
+
+  def search
+    respond_to do |format|
+      format.js { render }
+    end
+  end
 end

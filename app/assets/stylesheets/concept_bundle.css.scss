@@ -11,6 +11,12 @@ div#concept_bundle_text {
 div#concept_bundle_text > span.learnopedia_bundle_element_active {
 }
 
+div#search_results {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
 textarea#question_question_text {
     width: 650px;
     height: 100px;

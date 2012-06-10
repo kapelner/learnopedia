@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-span.learnopedia_bundle_element_active {
+div#contributor_view_wiki_text span.learnopedia_bundle_element_active, div#student_view_wiki_text span.learnopedia_bundle_element_active {
     cursor: pointer;
 }
 

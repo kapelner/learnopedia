@@ -7,9 +7,10 @@
         </div>
       </td>
       <td>
-        <div class="question_text_difficulty difficulty_level_<%= q.difficulty_level %>">
-          <%= q.question_text %>
-        </div>
+        <span class="difficulty_level_<%= q.difficulty_level %>">
+          <%= q.difficulty_level_text %>
+        </span>
+        <%= q.question_text %>
         <% if q.answers.empty? %>
           <div class="question_unlisted">
             (This question is currently unlisted because it has no answers associated with it)

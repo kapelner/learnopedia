@@ -28,4 +28,5 @@ Learnopedia::Application.routes.draw do
   post "question/add"
   post "question/edit"
   post "question/delete"
+  post "question/search"
 end

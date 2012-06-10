@@ -1,5 +1,4 @@
 <table cellspacing="5">
-  <%= render 'new_question' %>
   <% @cb.questions.each_with_index do |q, i| %>
     <tr>
       <td valign="top">
@@ -8,15 +7,18 @@
         </div>
       </td>
       <td>
-        <div class="question_text_difficulty_edit difficulty_level_<%= q.difficulty_level %>">
-          <%= q.question_text %>
+        <div class="question_text_difficulty_edit">
+          <span class="difficulty_level_<%= q.difficulty_level %>">
+            <%= q.difficulty_level_text %>
+          </span>
+          &nbsp;&nbsp;<%= q.question_text %>
+          <% if q.answers.empty? %>
+            <div class="question_unlisted">
+              (This question is currently unlisted because it has no answers associated with it)
+            </div>
+          <% end %>
+          <%= button_to "Add Answer" %>
         </div>
-        <% if q.answers.empty? %>
-          <div class="question_unlisted">
-            (This question is currently unlisted because it has no answers associated with it)
-          </div>
-        <% end %>
-        <%= button_to "Add Answer" %>
       </td>
       <td valign="top">
         <% if current_user.id == q.contributor_id %>

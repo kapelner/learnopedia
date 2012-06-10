@@ -4,7 +4,7 @@
     <td valign="center" align="center">
       <h2>
         <%= best_in_place @cb, :title, :type => :input, :path => {:action => :edit_title, :id => @cb.id}, :style => {:width => "400px"} %>
-        <span style="font-size:10px;">(click the title to edit)</span>
+        <br /><span style="font-size:10px;">(click the title to edit)</span>
       </h2>
     </td>
     <td valign="center" align="right" width="10%">
@@ -22,10 +22,18 @@
   </div>
 </div>
 
-<h2>Add Questions for Concept</h2>
-<%= render 'questions_for_concept_edit', :cb => @cb %>
+<h3>Create a new question for this concept</h3>
+<%= render 'new_question' %>
 
-<h2>Add Videos for Concept</h2>
+<h3>Search for a question to add to this concept</h3>
+<%= render 'search_current_questions' %>
+
+<% if @cb.questions.any? %>
+  <h3>Current Questions</h3>
+  <%= render 'questions_for_concept_edit' %>
+<% end %>
+
+<h3>Add Videos for Concept</h3>
 <%= render 'add_video_for_concept' %>
 
 <br />

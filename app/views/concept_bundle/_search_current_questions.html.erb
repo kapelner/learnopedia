@@ -1,0 +1,6 @@
+<%= form_for :question, :remote => true, :url => {:controller => :question, :action => :search} do |f| %>
+  <%= f.hidden_field :concept_bundle_id, :value => @cb.id %>
+  <%= f.text_field :query_string, :style => "width:400px;" %><%= submit_tag " Search " %>
+<% end %>
+
+<div id="search_results" style="display:none;"></div>
