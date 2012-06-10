@@ -1,0 +1,15 @@
+<table width="100%">
+  <tr>
+    <th></th>
+    <th align="left">Video</th>
+    <th align="left">Description</th>
+  </tr>
+  <% @cb.concept_videos.each_with_index do |v, i|  %>
+    <tr>
+      <td valign="top"><%= i + 1 %></td>
+      <td valign="top">...<%= v.video.to_s.slice(-60..-1) %></td>
+      <td valign="top"><%= v.description %></td>
+    </tr>
+  <% end %>
+</table>
+
