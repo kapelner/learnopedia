@@ -22,10 +22,10 @@
   </div>
 </div>
 
-<h3>Create a new question for this concept</h3>
+<h3>Create a new question</h3>
 <%= render 'new_question' %>
 
-<h3>Search for a question to add to this concept</h3>
+<h3>Search for a question to add</h3>
 <%= render 'search_current_questions' %>
 
 <% if @cb.questions.any? %>
@@ -35,10 +35,14 @@
 
 <h3>Add a video to this concept</h3>
 <%= render 'add_video_for_concept' %>
+<% if @cb.concept_videos.any? %>
+  <h3>Current videos</h3>
+  <%= render 'videos_for_concept' %>
+<% end %>
 
 <br />
 <br />
-<%= link_to %Q|Return to the main page "#{@cb.page.title}"|, :controller => :page, :action => :contributor_view, :id => @cb.page.id %>
+<%= link_to %Q|Return to the concept's page "#{@cb.page.title}"|, :controller => :page, :action => :contributor_view, :id => @cb.page.id %>
 
 <script type="text/javascript">
   $(window).bind('load', function(){

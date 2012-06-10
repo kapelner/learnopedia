@@ -19,8 +19,8 @@
     $(document).ready(function(){
       jQuery(".best_in_place").best_in_place(); //activate best in place
     });
-    <% if flash.any? %>
-      showFlash("<%= flash.now[:error] %>");
+    <% if flash[:error] %>
+      showFlash("<%= flash[:error] %>");
     <% end %>
   </script>
 </body>

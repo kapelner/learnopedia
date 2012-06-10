@@ -8,7 +8,7 @@ gem 'nokogiri', '1.5.2'
 gem 'crypt19', :platform => :ruby
 gem 'rak'
 gem 'POpen4'
-gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+gem 'rails_admin', '0.0.3', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'devise'
 gem 'cancan'
 gem 'carrierwave'

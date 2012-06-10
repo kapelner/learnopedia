@@ -3,9 +3,7 @@ class ConceptVideo < ActiveRecord::Base
 
   belongs_to :concept_bundle
 
-  mount_uploader :video, VideoUploader  
-
-  validates :desciption, :presence => true
+  mount_uploader :video, VideoUploader
 
   searchable {text :description}
 end

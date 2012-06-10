@@ -42,7 +42,7 @@ class PageController < ApplicationController
       authorize! :create, Page
       url = params[:newpage][:url]
       unless url.start_with?("en.wikipedia.org/wiki") or url.start_with?("http://en.wikipedia.org/wiki")
-        flash.now[:error] = "Page must be an English Wikipedia page."
+        flash[:error] = "Page must be an English Wikipedia page."
       else
         @page = Page.create_learnopedia_page_by_url!(params[:newpage][:url])
       end
