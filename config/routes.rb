@@ -26,7 +26,7 @@ Learnopedia::Application.routes.draw do
   delete "concept_bundle/delete"
   post "concept_video/add"
   post "question/add"
-  post "question/edit"
+  put "question/edit"
   post "question/delete"
   post "question/search"
   get "answer/index"

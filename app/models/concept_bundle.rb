@@ -15,6 +15,14 @@ class ConceptBundle < ActiveRecord::Base
     self.questions.select{|q| q.answers.any?}
   end
 
+  def questions_by_difficulty
+    self.questions.sort_by{|cb| cb.difficulty_level}
+  end
+
+  def questions_with_answers_by_difficulty
+    self.questions_with_answers.sort_by{|cb| cb.difficulty_level}
+  end
+
   def no_content?
     self.concept_videos.empty? and self.questions_with_answers.empty?
   end

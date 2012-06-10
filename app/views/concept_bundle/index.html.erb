@@ -1,6 +1,8 @@
 <table width="100%">
   <tr>
-    <td width="10%"></td>
+    <td width="10%">
+      <%= link_to image_tag("go_back.png", :size => "100x100", :title => %Q|Return to the concept's page "#{@cb.page.title}"|), :controller => :page, :action => :contributor_view, :id => @cb.page.id %>
+    </td>
     <td valign="center" align="center">
       <h2>
         <%= best_in_place @cb, :title, :type => :input, :path => {:action => :edit_title, :id => @cb.id}, :style => {:width => "400px"} %>
@@ -29,20 +31,16 @@
 <%= render 'search_current_questions' %>
 
 <% if @cb.questions.any? %>
-  <h3>Current Questions</h3>
+  <h3>Current Questions <span style="font-size:10px;">(click text to edit)</span></h3>
   <%= render 'questions_for_concept_edit' %>
 <% end %>
 
-<h3>Add a video to this concept</h3>
+<h3>Add a video exposition of this concept</h3>
 <%= render 'add_video_for_concept' %>
 <% if @cb.concept_videos.any? %>
   <h3>Current videos</h3>
   <%= render 'videos_for_concept' %>
 <% end %>
-
-<br />
-<br />
-<%= link_to %Q|Return to the concept's page "#{@cb.page.title}"|, :controller => :page, :action => :contributor_view, :id => @cb.page.id %>
 
 <script type="text/javascript">
   $(window).bind('load', function(){

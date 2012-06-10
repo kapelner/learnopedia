@@ -1,5 +1,5 @@
 <table width="100%">
-  <% @cb.questions.each_with_index do |q, i| %>
+  <% @cb.questions_by_difficulty.each_with_index do |q, i| %>
     <tr>
       <td valign="top">
         <div class="question_num_difficulty_edit difficulty_level_<%= q.difficulty_level %>">
@@ -8,15 +8,20 @@
       </td>
       <td>
         <div class="question_text_difficulty_edit">
-          <span class="difficulty_level_<%= q.difficulty_level %>">
-            <%= q.difficulty_level_text %>
-          </span>
-          &nbsp;&nbsp;<%= q.question_text %>
+          <%= best_in_place q, :question_text, 
+                :type => :textarea,
+                :display_with => :simple_format,
+                :path => {:controller => :question, :action => :edit, :id => q.id},
+                :html_attrs => {:style => "width:600px; height: 300px;"} %>
           <% if q.answers.empty? %>
             <div class="question_unlisted">
               (This question is currently unlisted because it has no answers associated with it)
             </div>
           <% end %>
+          <span class="difficulty_level_<%= q.difficulty_level %>">
+            <%= q.difficulty_level_text %>
+          </span>
+          &nbsp;&nbsp;
           <%= link_to "Add Answer", :controller => :answer, :action => :index, :id => q.id %>
         </div>
       </td>

@@ -7,6 +7,12 @@ class QuestionController < ApplicationController
     redirect_to :back
   end
 
+  def edit
+    q = Question.find(params[:id])
+    q.update_attributes(params[:question])
+    render :nothing => true
+  end
+
   def delete
     cb = ConceptBundle.find(params[:cbid])
     q = Question.find(params[:qid])
