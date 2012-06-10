@@ -1,5 +1,5 @@
 <table cellspacing="5">
- <% @cb.questions.each_with_index do |q, i| %>
+ <% @cb.questions_with_answers.each_with_index do |q, i| %>
     <tr>
       <td valign="top">
         <div class="question_num_difficulty difficulty_level_<%= q.difficulty_level %>">

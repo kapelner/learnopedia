@@ -1,5 +1,5 @@
 <%= form_for :question, :url => {:controller => :question, :action => :add} do |f| %>
-  <%= f.hidden_field :concept_bundle_id, :value => @cb.id %>
+  <input type="hidden" name="concept_bundle_id" value="<%= @cb.id %>" />
   <div>
     <%= f.text_area :question_text %><br />
     <% Question::DifficultyLevels.each do |code, text| %>
@@ -13,8 +13,3 @@
 <% if @cb.questions.any? %>
   <div style="height:20px;"></div>
 <% end %>
-<script type="text/javascript">
-  $(window).bind('load', function(){
-    $('#question_question_text').focus();
-  });
-</script>

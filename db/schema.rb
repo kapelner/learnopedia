@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608065315) do
+ActiveRecord::Schema.define(:version => 20120610082546) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(:version => 20120608065315) do
     t.text     "bundle_elements_hash"
   end
 
+  create_table "concept_bundles_questions", :id => false, :force => true do |t|
+    t.integer "concept_bundle_id"
+    t.integer "question_id"
+  end
+
+  add_index "concept_bundles_questions", ["concept_bundle_id"], :name => "index_concept_bundles_questions_on_concept_bundle_id"
+  add_index "concept_bundles_questions", ["question_id"], :name => "index_concept_bundles_questions_on_question_id"
+
   create_table "concept_videos", :force => true do |t|
     t.integer  "concept_bundle_id"
     t.text     "description"
@@ -42,13 +50,11 @@ ActiveRecord::Schema.define(:version => 20120608065315) do
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.text     "html",       :limit => 16777215
-    t.string   "url",        :limit => 760
+    t.string   "url",        :limit => 600
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.string   "wiki_name",  :limit => 760
   end
-
-  add_index "pages", ["url"], :name => "index_pages_on_url", :unique => true
 
   create_table "pages_prerequisites", :id => false, :force => true do |t|
     t.integer "prerequisite_id"
@@ -65,12 +71,13 @@ ActiveRecord::Schema.define(:version => 20120608065315) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "prerequisites", ["url"], :name => "index_prerequisites_on_url", :unique => true
+
   create_table "questions", :force => true do |t|
-    t.integer  "concept_bundle_id"
     t.text     "question_text"
-    t.string   "difficulty_level",  :limit => 1
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.string   "difficulty_level", :limit => 1
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "contributor_id"
   end
 
@@ -106,11 +113,11 @@ ActiveRecord::Schema.define(:version => 20120608065315) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "versions", :force => true do |t|
-    t.string   "item_type",  :null => false
-    t.integer  "item_id",    :null => false
-    t.string   "event",      :null => false
+    t.string   "item_type",                        :null => false
+    t.integer  "item_id",                          :null => false
+    t.string   "event",                            :null => false
     t.string   "whodunnit"
-    t.text     "object"
+    t.text     "object",     :limit => 2147483647
     t.datetime "created_at"
   end
 

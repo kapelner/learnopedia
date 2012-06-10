@@ -2,8 +2,12 @@ class Question < ActiveRecord::Base
   has_paper_trail
 
   has_many :answers, :dependent => :destroy
-  belongs_to :concept_bundle
+  has_and_belongs_to_many :concept_bundles
+#  has_many :concept_bundles_questions
+#  has_many :concept_bundles, :through => :concept_bundles_questions
   belongs_to :contributor, :class_name => 'User'
+
+  searchable {text :question_text}
 
   DifficultyLevels = {
     'a' => 'Super easy',
@@ -19,5 +23,5 @@ class Question < ActiveRecord::Base
   def difficulty_level_text
     "[#{DifficultyLevels[self.difficulty_level]}]"
   end
-#  scope :questions_with_answers 
+  
 end

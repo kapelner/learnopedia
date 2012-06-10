@@ -1,4 +1,4 @@
-<table cellspacing="5">
+<table width="100%">
   <% @cb.questions.each_with_index do |q, i| %>
     <tr>
       <td valign="top">
@@ -17,12 +17,12 @@
               (This question is currently unlisted because it has no answers associated with it)
             </div>
           <% end %>
-          <%= button_to "Add Answer" %>
+          <%= link_to "Add Answer", :controller => :answer, :action => :index, :id => q.id %>
         </div>
       </td>
-      <td valign="top">
+      <td valign="center">
         <% if current_user.id == q.contributor_id %>
-          <%= button_to "x", :controller => :question, :action => :delete, :id => q.id %>
+          <%= button_to "x", :controller => :question, :action => :delete, :qid => q.id, :cbid => @cb.id %>
         <% end %>
       </td>
     </tr>

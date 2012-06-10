@@ -33,9 +33,19 @@
   <%= render 'questions_for_concept_edit' %>
 <% end %>
 
-<h3>Add Videos for Concept</h3>
+<h3>Add a video to this concept</h3>
 <%= render 'add_video_for_concept' %>
 
 <br />
 <br />
 <%= link_to %Q|Return to the main page "#{@cb.page.title}"|, :controller => :page, :action => :contributor_view, :id => @cb.page.id %>
+
+<script type="text/javascript">
+  $(window).bind('load', function(){
+    <% if @cb.untitled? %>
+      $('#best_in_place_concept_bundle_<%= @cb.id %>_title').click();
+    <% else %>
+      $('#question_question_text').focus();
+    <% end %>
+  });
+</script>

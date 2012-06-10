@@ -7,6 +7,8 @@ class Page < ActiveRecord::Base
   has_many :concept_bundles, :dependent => :destroy
   has_and_belongs_to_many :prerequisites
 
+  searchable {text :title, :html}
+
   def Page.create_learnopedia_page_by_url!(nokogiri_doc)
     Page.create({
       :url => nokogiri_doc.url,
@@ -27,7 +29,8 @@ class Page < ActiveRecord::Base
   end
   
   def add_prerequisite!(url)
-    self.prerequisites << Prerequisite.create(:url => url, :title => Page.parse_title_from_wikipedia_article(Nokogiri::HTML(open(url))))
+    title = Page.parse_title_from_wikipedia_article(Nokogiri::HTML(open(url)))
+    self.prerequisites << Prerequisite.find_by_url(url) || Prerequisite.create(:url => url, :title => title)
   end
 
   def wikihtml_links_rewritten_concept_bundles_added_their_text_highlighted(options = {})

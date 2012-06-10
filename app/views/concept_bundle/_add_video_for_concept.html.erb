@@ -5,6 +5,7 @@
   <%= f.hidden_field :cb_id, :value => @cb.id %>
   Video File: <%= f.file_field :video %><br />
   Allowed extensions: <%= VideoUploader.new.extension_white_list.join(' ') %><br />
-  Description: <%= f.text_field :description %><br />
+  Description:<br />
+  <%= f.text_area :description, :rows => 5, :cols => 70 %><br />
   <%= f.submit " Upload " %>
 <% end %>

@@ -10,7 +10,7 @@ class ConceptBundleController < ApplicationController
     cb_id_hash = cb_ids.inject({}){|hash, cb_id| hash[cb_id.to_i] = 1; hash}
     cb = ConceptBundle.create({
       :page_id => page_id,
-      :title => "[Untitled]",
+      :title => ConceptBundle::Untitled,
       :contributor_id => current_user.id,
       :bundle_elements_hash => cb_id_hash
     })

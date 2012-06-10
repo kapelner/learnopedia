@@ -2,13 +2,15 @@ class QuestionController < ApplicationController
   before_filter :authenticate_user!
   
   def add
-    Question.create(params[:question].merge(:contributor_id => current_user))
+    cb = ConceptBundle.find(params[:concept_bundle_id])
+    cb.questions << Question.create(params[:question].merge(:contributor_id => current_user))
     redirect_to :back
   end
 
   def delete
-    q = Question.find(params[:id])
-    q.destroy if q.contributor_id == current_user.id
+    cb = ConceptBundle.find(params[:cbid])
+    q = Question.find(params[:qid])
+    cb.questions.delete(q) if q.contributor_id == current_user.id
     redirect_to :back
   end
 
