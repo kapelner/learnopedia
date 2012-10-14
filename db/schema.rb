@@ -50,11 +50,13 @@ ActiveRecord::Schema.define(:version => 20120610082546) do
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.text     "html",       :limit => 16777215
-    t.string   "url",        :limit => 600
+    t.string   "url",        :limit => 760
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.string   "wiki_name",  :limit => 760
   end
+
+  add_index "pages", ["url"], :name => "index_pages_on_url", :unique => true
 
   create_table "pages_prerequisites", :id => false, :force => true do |t|
     t.integer "prerequisite_id"
@@ -74,10 +76,11 @@ ActiveRecord::Schema.define(:version => 20120610082546) do
   add_index "prerequisites", ["url"], :name => "index_prerequisites_on_url", :unique => true
 
   create_table "questions", :force => true do |t|
+    t.integer  "concept_bundle_id"
     t.text     "question_text"
-    t.string   "difficulty_level", :limit => 1
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.string   "difficulty_level",  :limit => 1
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.integer  "contributor_id"
   end
 
@@ -113,11 +116,11 @@ ActiveRecord::Schema.define(:version => 20120610082546) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "versions", :force => true do |t|
-    t.string   "item_type",                        :null => false
-    t.integer  "item_id",                          :null => false
-    t.string   "event",                            :null => false
+    t.string   "item_type",                      :null => false
+    t.integer  "item_id",                        :null => false
+    t.string   "event",                          :null => false
     t.string   "whodunnit"
-    t.text     "object",     :limit => 2147483647
+    t.text     "object",     :limit => 16777215
     t.datetime "created_at"
   end
 

@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'railties', '3.2.0'
 gem 'rails', '3.2'
-
 gem 'rake', '0.9.2.2'
 gem 'nokogiri', '1.5.2'
 gem 'crypt19', :platform => :ruby
@@ -20,9 +19,15 @@ gem 'sunspot_solr' #USE from CMD: bundle exec rake sunspot:solr:run
 gem 'best_in_place'
 gem 'youtube_it', :git => "git://github.com/kylejginavan/youtube_it.git"
 gem 'mathjax-rails'
+gem 'mysql2'
+gem 'chronic'
+gem 'fitter-happier'
+gem 'bcrypt-ruby'
+gem 'execjs'
+gem 'therubyracer'
+gem 'minitest'
 
-group :production do
-  gem 'mysql2', :git => 'git://github.com/brianmario/mysql2.git'
+group :production do  
   gem 'whenever', :require => false
   gem 'backup'
 end
@@ -30,10 +35,6 @@ end
 #my comment
 
 group :development do
-  gem 'mysql', :platforms => :mingw
-  gem 'win32-open3-19', :platforms => :mingw
-  #handy tools to make the console and logging pretty
-  gem 'win32console'
   gem 'hirb'
   gem 'wirble'
   gem 'awesome_print'

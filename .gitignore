@@ -5,6 +5,7 @@
 .sass-cache
 capybara-*.html
 .rspec
+solr/data/
 /.bundle
 /vendor/bundle
 /log/*
