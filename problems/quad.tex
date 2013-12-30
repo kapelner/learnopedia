@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+
+\include{preamble}
+
+\title{Quadratic Forms}
+\author{Adam Kapelner}
+
+\begin{document}
+\maketitle
+
+In mathematics, a quadratic form is a homogeneous polynomial of degree two in a number of variables. For example,
+
+is a quadratic form in the variables x and y.
+
+\problem Homogenous polynomial review
+
+\benum
+\easysubproblem What is an homogenous polynomial?
+
+Ans: polynomial whose monomials add up to the same degree
+
+\easysubproblem Is the following polynomial homogenous: $x^4 + xy + y^4$?
+
+Ans: No because $xy$ does not have degree 5.
+
+\easysubproblem Is the following polynomial homogenous: $x^4 + xy^3 + y^4$? 
+
+Ans: Yes, all monomials have degree 4.
+
+\eenum 
+
+\problem Quadratic forms Intro
+
+\benum
+\easysubproblem Define quadratic polynomial using what you've learned in the last problem
+
+Ans: homogenous polynomial of degree 2
+
+\easysubproblem Define unary, binary, and ternary quadratic polynomials
+
+Ans: \benum
+\item[Unary:] Any $f(x) = ax^2$ where $a \in \reals$
+\item[Binary:] Any $f(x,y) = ax^2 + bxy + cy^2$ where $a,b,c \in \reals$
+\item[Ternary:] Any $f(x,y,z) = ax^2 + bxy + cxz + dyz + ey^2 + gz^2$ where $a,b,c,d,e,g \in \reals$
+\eenum
+\eenum
+
+\problem Quadratic Spaces
+
+\benum
+\easysubproblem A quadratic space is of the form $\angbrace{V, q}$. What is $V$ and what is $q$?
+
+Ans: $V$ is a vector space and $q$ is a quadratic form of an element inside of $V$.
+
+\easysubproblem They give the example of $q$ being the distance from the origin squared function. Create another $q$ for the vector space $\reals^3$.
+
+Ans: That was sort of a trick question, since any $q$ that's a quadratic form will do, choose $q(x,y,z) = xy + xz + yz$. 
+
+\eenum
+
+\problem Real Quadratic Forms
+
+\benum
+\easysubproblem For any matrix $A \in \reals^{n \times n}$ and any vector $\x \in \reals^n$, express $\x^\top A \x$ using sum and element notation. Write it out formally expressing the first two terms in an indefinite sequence and the last (\ie $1,2, \ldots, n$) and show each step.
+
+\beqn
+\text{Ans:} ~~~  \x^\top A \x = \sumonen{i}{\sumonen{j}{a_{ij}x_j x_i}}
+\eeqn
+
+\intermediatesubproblem Prove that if $A$ is any real square matrix, that implies that $\x^\top A \x$ represents a quadratic form.
+
+\intermediatesubproblem Prove that the quadratic form constructed by any real square matrix $A$ can be constructed by a symmetric matrix $B$ instead of using $A$.
+
+\easysubproblem Using the fact from the review problems below, show that the quadratic form can be manipulated to be of the form $\lambda_1 \tilde{x}_1^2 + \ldots + \lambda_n \tilde{x}_n^2$ where $\tilde{\x}$ is a linear combination of $\x$.
+
+
+\beqn
+\text{Ans:} ~~ \x^\top A \x = \x^\top P D P^\top \x = \tilde{\x}^\top D \tilde{\x} = \lambda_1 \tilde{x}_1^2 + \ldots + \lambda_n \tilde{x}_n^2
+\eeqn
+
+\easysubproblem Show that the quadratic form can be made simpler into $b_1 \tilde{x}_1^2 + \ldots + b_n \tilde{x}_n^2$ where $b_1, \ldots, b_n \in \braces{-1,0,1}$.
+
+Ans: use the same proof above but multiply the $i$th column of $P$ by $\oneover{\lambda_i}$.
+
+\easysubproblem Define now what it means for $A$ to be positive definite, negative definite, and indefinite.
+
+Ans: positive definite means that $b_1, \ldots, b_n$ are all +1's, negative definite means that $b_1, \ldots, b_n$ are all -1's, and indefinite means $b_1, \ldots, b_n$ can be a mix of +1's and -1's. 
+
+\eenum
+
+\problem Review of Relevant Matrix Algebra. Skip this if you feel you are confident in your abilities.
+
+\benum
+\easysubproblem Prove that any symmetric matrix $A$ has $n$ real eigenvalues.
+
+\easysubproblem Show that any symmetric matrix $A$ can be orthogonally diagonalized.
+\eenum
+
+
+\end{document}
